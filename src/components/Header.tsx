@@ -3,7 +3,7 @@ import {FaMeetup} from 'react-icons/fa'
 
 function Header() {
   return <header>
-    <a href="HomePage"><FaMeetup /></a>
+    <a href="HomePage" className="header-logo"><FaMeetup /></a>
   </header>
 }
 

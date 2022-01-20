@@ -1,38 +1,197 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Knewave&family=Noto+Serif+Display:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+:root{
+  background-color: #F1F1F1;
+  --clr-green: #00B894;
+  --clr-black: #3E3E3E;
+  --clr-light-grey: #F1F1F1;
+
+/*   --ff-primary: 'Roboto', sans-serif; */
+  --ff-primary: 'Outfit', sans-serif;
+  --ff-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ff-headings: 'Knewave', cursive;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body{
+  font-family: var(--ff-primary);
+  font-weight: 400;
+  transition: 200ms;
+  scroll-behavior: smooth;
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  width: 100%;
+  height: 100px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.header-logo{
+  color:var(--clr-green);
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a{
+  color: #D9A400;
+}
+
+main {
+  max-width: 900px;
+}
+
+.icon-btn {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: var(--clr-green);
+}
+
+img {
+  border-radius: 1rem;
+}
+
+button{
+  font-family: var(--ff-primary);
+  color: #FFF;
+  background-color: var(--clr-green);
+  border: none;
+  outline: none;
+  padding: 7px 14px;
+  height: 31px;
+  border-radius: 99rem;
+  font-weight: 600;
+}
+
+button:focus {
+  outline:none;
+}
+
+select{
+  font-family: var(--ff-primary);
+  background-color: var(--clr-green);
+  border: none;
+  outline: none;
+  color: #FFF;
+  height: 31px;
+  padding: 7px 14px;
+  border-radius: 99rem;
+  font-weight: 600;
+}
+
+select:focus + .focus {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 2px solid var(--clr-light-grey);
+  border-radius: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--ff-headings);
+  text-transform: uppercase;
+}
+
+h1 {
+  color: var(--clr-green);
+  font-size: 3rem;
+  margin: 10px 0px;
+}
+h2 {
+  font-size: 3rem;
+  margin: 10px 0px;
+}
+
+h3 {
+  font-size: 2rem;
+  margin: 5px 0px;
+}
+
+/* _____________MEETUP DETAILS_____________ */
+
+.meetup-details-wrapper img{
+  grid-area: img;
+  width: 70%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+.attend-btn {
+  grid-area: attend;
+  width: 8rem;
+}
+.details-date{
+  grid-area: date;
+  justify-self: left;
+  margin: 0;
+  color: var(--clr-green);
+  text-transform: uppercase;
+}
+.details-title{
+  grid-area: title;
+  justify-self: left;
+  margin-bottom: 0;
+}
+.details-host{
+  grid-area: host;
+  justify-self: left;
+  margin: 0;
+  color: var(--clr-green);
+}
+.details-host span{
+  font-weight: 600;
+}
+.details-desc{
+  grid-area: desc;
+  justify-self: left;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.meetup-details-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas: 
+  'img img img img'
+  '. date attend .'
+  '. title attend .'
+  '. host attend .'
+  '. desc desc .'
+  ;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  
+}
+
+.back-btn {
+  position: absolute;
+  font-size: 0.8rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-btn svg{
+  font-size: 2rem;
+  margin-right: 0.2rem;
 }
