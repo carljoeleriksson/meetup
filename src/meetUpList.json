@@ -1,0 +1,22 @@
+[
+    {
+        "Id": 1,
+        "Date": "2022-04-26 11:45",
+        "Title" :  "Meet Up One",
+        "Description" : "MeetUp One Description ",
+        "Host": "Hoster One",
+        "Image": "./images/300.png",
+        "Attend": false
+
+    },
+    {
+        "Id": 2,
+        "Date": "2023-04-26 11:45",
+        "Title" :  "Meet Up Two",
+        "Description" : "MeetUp Two Description ",
+        "Host": "Hoster Two",
+        "Image": "./images/300.png",
+        "Attend": false
+
+    }
+]
