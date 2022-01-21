@@ -25,7 +25,9 @@ function Comments() {
 
     function handleSubmit(e: any) {
         e.preventDefault()
-        
+        if(inputValues.name !== '' && inputValues.message !== '') {
+            setCommentList([inputValues, ...commentList])
+        }
         let inputData = { ...inputValues }
         
         inputData = {
