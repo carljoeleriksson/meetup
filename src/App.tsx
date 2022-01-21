@@ -17,7 +17,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/details/:id" component={Details} />
         </main>
-
+        
         <footer>
           &copy; Meetup-Project 2022
         </footer>
