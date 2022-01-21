@@ -25,6 +25,7 @@ function Comments() {
 
     function handleSubmit(e: any) {
         e.preventDefault()
+        
         let inputData = { ...inputValues }
         
         inputData = {
@@ -37,8 +38,8 @@ function Comments() {
     function listItems() {
         console.log(commentList)
         
-        return commentList.map((post: string, index: number) => 
-           <li key={index}>{post}</li>
+        return commentList.map((post: object, index: number) => 
+           <li key={index}>{post.name}<br />{post.message}</li>
         )
     }
 
@@ -61,9 +62,9 @@ function Comments() {
             />
         </form>
         <button className='send-btn' onClick={handleSubmit} type="submit">Send</button>
-        <ul className="comments-list">
+        <div className="comments-list">
             {commentList && listItems()}
-        </ul>
+        </div>
     </>
   
 }
