@@ -47,18 +47,12 @@ function Comments() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
-        console.log(e);
         
         let newComment: comment = { ...inputValues }
-        console.log('newComment', newComment);
         
         if(inputValues.name !== '' && inputValues.message !== '') {
             setCommentList([newComment, ...commentList])
         }
-        setTimeout(() => {
-            console.log('commentList', commentList);
-        }, 100)
-        
         
         newComment = {
             name: '',
