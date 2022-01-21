@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {FaArrowAltCircleLeft} from 'react-icons/fa'
 
+import Comments from '../components/Comments'
+
 function MeetupDetails() {
     const [isAttended, setIsAttended] = useState<boolean>(false)
     function attendClick() {
@@ -21,8 +23,7 @@ function MeetupDetails() {
         <p className="details-host"><span>Host: </span>Joel Eriksson</p>
         <p className="details-desc" data-testid="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />Beatae consequatur eaque ratione provident minima eius odio facere impedit assumenda sapiente?</p>
     </div>
-    
-    {/* Insert <Comments/> here */}
+    <Comments/>
   </>
 }
 
