@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Home from './pages/HomePage'
-import Details from './pages/MeetupDetails'
+/* import Details from './pages/MeetupDetails' */
 
 import Header from './components/Header'
 
@@ -17,7 +17,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={Home} />
-            <Route path="/details/:id" element={Details} />
+            {/* <Route path="/details/:id" element={Details} /> */}
           </Routes>  
         </main>
         
