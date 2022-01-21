@@ -64,7 +64,7 @@ export default function MeetUpList() {
 
   return (<>
     {meetUplist.length > 0 && meetUplist.map((el: any) => (
-      // To be done by Ahmad from here witch div with ur component with prop meetup ID
+      // To be done by Ahmed from here witch div with ur component with prop meetup ID
       <div key={el.Id}> {el.Title}, {el.Date}, {el.Description}, {el.Host}</div>
     )
     )
