@@ -6,13 +6,10 @@ import Details from './pages/MeetupDetails'
 
 import Header from './components/Header'
 
-import MeetupContextProvider from './contexts/MeetupContext'
-
 import './App.css'
 
 function App() {
   return (
-    <MeetupContextProvider>
     <div className="App">
       <Router>
 
@@ -26,7 +23,6 @@ function App() {
         </footer>
       </Router>
     </div>
-    </MeetupContextProvider>
   )
 }
 
