@@ -8,45 +8,63 @@ export default function MeetUpList() {
 
   const fetchMeetUpList = async () => {
 
-    try {
 
       const meetUplist = await import("../meetUpList.json");
 
-      const listArr: Array<any> = meetUplist.default
+      let listArr: Array<any>= []
+
+      listArr = meetUplist.default
 
       //const listsFetch =  await fetch('/meetUpList.json')
       //console.log(listArr)
 
 
       // storeToLocalStorage(listArr)
+      // save  mettup list to local storage 
+      localStorage.setItem('meetUp-List', JSON.stringify(listArr))
 
-      setMeetUplist(listArr)
 
-    } catch (e) {
+      let meetUp_List:any = localStorage.getItem('meetUp-List')
+
+      setMeetUplist(JSON.parse(meetUp_List))
+
+
+  }
+
+  //const storeToLocalStorage = (meetUplist: Array<any>) => {
+
+  //  meetUplist.length > 0 && localStorage.setItem('meetUp-List', JSON.stringify(meetUplist))
+
+  //}
+
+  //const getFromLocalStorage = (meetUplist: Array<any>) => {
+
+  //  meetUplist.length > 0 && localStorage.getItem('meetUp-List', JSON.stringify(meetUplist))
+
+  //}
+
+  useEffect(() => {
+
+    try {
+
+    fetchMeetUpList()
+
+    //storeToLocalStorage(meetUplist)
+
+    }
+    catch (e) {
 
       console.log(e)
 
     }
 
-  }
-
-  const storeToLocalStorage = (meetUplist: Array<any>) => {
-
-    meetUplist.length > 0 && localStorage.setItem('meetUp-List', JSON.stringify(meetUplist))
-
-  }
-
-  useEffect(() => {
-
-    fetchMeetUpList()
-
-    storeToLocalStorage(meetUplist)
 
   }, [])
 
 
   return (<>
     {meetUplist.length > 0 && meetUplist.map((el: any) => (
+      // To be done by Ahmad from here witch div with ur component with prop meetup ID
       <div key={el.Id}> {el.Title}, {el.Date}, {el.Description}, {el.Host}</div>
     )
     )
