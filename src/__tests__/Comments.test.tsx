@@ -76,11 +76,11 @@ describe('Comments component', () => {
         render(<Comments/>)
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
-        const sendBtn = buttons[1]
-/*         const sendBtn = screen.getByRole('button', { name: 'Send' }) */
         
-
         userEvent.click(commentBtn)
+
+        const sendBtn = screen.getByRole('button', { name: 'Send' })
+        
         const nameInput = screen.getByPlaceholderText(/name/i)
         const messageInput = screen.getByPlaceholderText(/message/i)
 
@@ -90,12 +90,12 @@ describe('Comments component', () => {
         
         expect(nameInput).toHaveValue('')
         expect(messageInput).toHaveValue('')
+        
     })
-    it('shows message in commentList when user writes then press enter', () => {
+    it('shows message in commentList when user writes then press enter', async () => {
         render(<Comments/>)
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
-        const sendBtn = buttons[1]
 
         userEvent.click(commentBtn)
         const nameInput = screen.getByPlaceholderText(/name/i)
@@ -105,10 +105,10 @@ describe('Comments component', () => {
         userEvent.type(messageInput, 'Get it together Mark!')
         userEvent.keyboard('{enter}')
         
-        const commentList = screen.getAllByRole('listitem')
-        const latestPost = commentList[0]
-        expect(latestPost.name).toHaveValue('Linda')
-        expect(latestPost.message).toHaveValue('Get it together Mark!')
+        const commentList = await screen.getAllByTestId('listitem')
+        const latestPost = await commentList[0]
+        expect(latestPost).toHaveTextContent('Linda')
+        expect(latestPost).toHaveTextContent('Get it together Mark!')
     })
     //shows message in comment-section when user writes then presses send
     

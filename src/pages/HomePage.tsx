@@ -1,9 +1,10 @@
 import React from 'react';
+import MeetUpList from '../components/MeetUpList';
 
 function HomePage() {
-  return <main>
-
-  </main>;
+  return <>
+    <MeetUpList />
+    </>
 }
 
 export default HomePage;
