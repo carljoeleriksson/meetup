@@ -17,8 +17,11 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/details" element={<MeetupDetails/>} />
+            <Route path="/details" element={<MeetupDetails Id="1"/>} />
+
           </Routes>  
+
+          
         </main>
         
         <footer>

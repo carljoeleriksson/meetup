@@ -14,6 +14,8 @@ function MeetupDetails(props: any) {
 
     var meetupId: any = null
 
+    console.log(props.Id)
+
     const search = window.location.search;
 
     const params = new URLSearchParams(search);
@@ -21,7 +23,9 @@ function MeetupDetails(props: any) {
 
     function getMeetupIdFromUrl() {
 
-        meetupId = params.get('id');
+       // meetupId = params.get('id');
+
+       meetupId = props.Id
 
         if (!meetupId)
 
@@ -86,10 +90,11 @@ function MeetupDetails(props: any) {
 
         meetupListArr = Object.values(meetupList)
 
-        //  return meetupListArr
+          return meetupListArr
 
     }
 
+    // get requested meetup from meetup list
     function getReqMeetup() {
 
         singleMeetup = meetupListArr.filter((meetup: any) => {
