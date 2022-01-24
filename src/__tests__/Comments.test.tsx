@@ -2,14 +2,27 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import Comments from '../components/Comments'
+import { mockLocalStorage } from "./utils/mockLocalStorage"
+
+ const { getItemMock, setItemMock } = mockLocalStorage();
+
 
 describe('Comments component', () => {
+
+
+    beforeEach(()=>{
+      //  getItemMock.mockReturnValue('[{"name":"Omar","message":"It looks like a good meetup!"}]')
+
+        render(<Comments meetupId="1"/>)
+    })
     
     it('renders without crashing', () => {
-        render(<Comments/>)
+     //   render(<Comments meetupId="1" />)
+     expect(getItemMock).toHaveBeenCalled();
+
     })
     it('does not show any input fields initially', () => {
-        render(<Comments/>)
+     //   render(<Comments/>)
 
         const nameInput = screen.getByPlaceholderText(/name/i)
         const messageInput = screen.getByPlaceholderText(/message/i)
@@ -19,7 +32,7 @@ describe('Comments component', () => {
     })
 
     it('does show input fields when comment icon is clicked', () => {
-        render(<Comments/>)
+     //   render(<Comments/>)
 
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
@@ -36,7 +49,7 @@ describe('Comments component', () => {
     })
 
     it('does not show input field when comment icon is clicked twice', () => {
-        render(<Comments/>)
+      //  render(<Comments/>)
 
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
@@ -54,7 +67,7 @@ describe('Comments component', () => {
     })
 
     it('empties input fields when user presses the enter key', () => {
-        render(<Comments/>)
+      //  render(<Comments/>)
 
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
@@ -73,7 +86,7 @@ describe('Comments component', () => {
     })
 
     it('empties the input field when user presses send', () => {
-        render(<Comments/>)
+     //   render(<Comments/>)
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
         
@@ -93,7 +106,7 @@ describe('Comments component', () => {
         
     })
     it('shows message in commentList when user writes then press enter', async () => {
-        render(<Comments/>)
+      //  render(<Comments/>)
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
 
@@ -111,5 +124,9 @@ describe('Comments component', () => {
         expect(latestPost).toHaveTextContent('Get it together Mark!')
     })
     //shows message in comment-section when user writes then presses send
+
+    it('commnets list load correctly', ()=>{
+
+    })
     
 })

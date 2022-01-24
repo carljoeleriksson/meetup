@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
+import Comments from '../components/Comments';
 
 
 function MeetupDetails(props: any) {
@@ -164,7 +165,7 @@ function MeetupDetails(props: any) {
         )
         }
 
-        {/* Insert <Comments/> here */}
+         <Comments meetupId={meetupId} /> 
     </>
 }
 

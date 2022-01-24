@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FaCommentAlt } from 'react-icons/fa';
+ 
 
-function Comments() {
+function Comments(props:any) {
      interface comment {
         name: string,
         message: string
     }
+
+    const meetupId = getMeetupId()
+
+    var commentsStorageList:Array<comment> = readCommentsFrmLocalStorage(meetupId)
+
 
     const [commentFormHidden, setCommentFormHidden] = useState<Boolean>(true)
     const [commentList, setCommentList] = useState<comment[]>([
@@ -22,6 +28,17 @@ function Comments() {
         message: '',
     })
 
+    
+function getMeetupId(){
+
+  if(! props.meetupId){
+      throw new Error("meetupId prop is required!")
+  }
+
+  return props.meetupId
+  
+
+}
 
     function commentClick() {
         if(commentFormHidden){
@@ -43,13 +60,61 @@ function Comments() {
         setInputValues(newInputs)
     }
 
+     function  storeCommentToLocalStorage (comment: comment){
+       
+        commentsStorageList.push(comment)
+   
+         localStorage.setItem('Comments-List#'+meetupId, JSON.stringify(commentsStorageList))
+
+         console.log('storeCommentToLocalStorage')
+
+    }
+
+ 
+
+    function readCommentsFrmLocalStorage(meetupId:any){
+
+        const str = getCommentLstFrmLocalStorage(meetupId)
+
+       return   parseCommentsToJSON(str)
+    }
+
+    function getCommentLstFrmLocalStorage(meetupId:any){
+
+       return localStorage.getItem('Comments-List#'+meetupId) 
+
+    }
+
+    function parseCommentsToJSON(str:string|null ){
+        let commentsList:Array<comment>= []
+
+        if(str)
+        commentsList = JSON.parse(str)
+
+        return commentsList
+
+    }
+
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
         
         let newComment: comment = { ...inputValues }
         
         if(inputValues.name !== '' && inputValues.message !== '') {
+            
+            try {
+
+           storeCommentToLocalStorage(newComment) 
+
             setCommentList([newComment, ...commentList])
+
+
+
+            } catch(e) {
+
+                console.log(e)
+
+            }
         }
         
         
@@ -60,6 +125,12 @@ function Comments() {
 
         setInputValues(newComment)
     }
+
+    useEffect(()=>{
+
+        setCommentList(commentsStorageList)
+
+    },[])
 
     function listItems() {
         return commentList.map((post: comment, index: number) => 
