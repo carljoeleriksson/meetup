@@ -66,7 +66,6 @@ function getMeetupId(){
    
          localStorage.setItem('Comments-List#'+meetupId, JSON.stringify(commentsStorageList))
 
-         console.log('storeCommentToLocalStorage')
 
     }
 
@@ -96,6 +95,7 @@ function getMeetupId(){
     }
 
     function handleSubmit(e: React.FormEvent) {
+
         e.preventDefault()
         
         let newComment: comment = { ...inputValues }
@@ -106,7 +106,10 @@ function getMeetupId(){
 
            storeCommentToLocalStorage(newComment) 
 
+
             setCommentList([newComment, ...commentList])
+
+            //console.log(getCommentLstFrmLocalStorage(meetupId))
 
 
 

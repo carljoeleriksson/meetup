@@ -11,14 +11,19 @@ describe('Comments component', () => {
 
 
     beforeEach(()=>{
-      //  getItemMock.mockReturnValue('[{"name":"Omar","message":"It looks like a good meetup!"}]')
+       
+        getItemMock.mockReturnValue('[{"name":"Omar","message":"It looks like a good meetup!"}]')
+
+        
+
+
 
         render(<Comments meetupId="1"/>)
     })
     
     it('renders without crashing', () => {
      //   render(<Comments meetupId="1" />)
-     expect(getItemMock).toHaveBeenCalled();
+     expect(getItemMock).toReturnWith
 
     })
     it('does not show any input fields initially', () => {
@@ -105,8 +110,8 @@ describe('Comments component', () => {
         expect(messageInput).toHaveValue('')
         
     })
-    it('shows message in commentList when user writes then press enter', async () => {
-      //  render(<Comments/>)
+    it('shows message in commentList when user writes then press enter',  () => {
+   
         const buttons = screen.getAllByRole('button')
         const commentBtn = buttons[0]
 
@@ -118,15 +123,42 @@ describe('Comments component', () => {
         userEvent.type(messageInput, 'Get it together Mark!')
         userEvent.keyboard('{enter}')
         
-        const commentList = await screen.getAllByTestId('listitem')
-        const latestPost = await commentList[0]
+        const commentList =  screen.getAllByTestId('listitem')
+        const latestPost =  commentList[0]
         expect(latestPost).toHaveTextContent('Linda')
         expect(latestPost).toHaveTextContent('Get it together Mark!')
     })
     //shows message in comment-section when user writes then presses send
 
-    it('commnets list load correctly', ()=>{
-
+ 
+    it('Comments list is loaded to dom', ()=>{
+        const commentList =  screen.getAllByTestId('listitem')
+        const latestPost =  commentList[0]
+        expect(latestPost).toHaveTextContent('Omar')
+        expect(latestPost).toHaveTextContent('It looks like a good meetup!')
     })
     
+
+    it('New comment should not be rendered to dom when it can not be stored to localstorage', ()=> {
+        setItemMock.mockImplementation(() => {
+            throw Error()
+  })
+
+        const buttons = screen.getAllByRole('button')
+        const commentBtn = buttons[0]
+
+        userEvent.click(commentBtn)
+        const nameInput = screen.getByPlaceholderText(/name/i)
+        const messageInput = screen.getByPlaceholderText(/message/i)
+
+        userEvent.type(nameInput, 'Linda')
+        userEvent.type(messageInput, 'Get it together Mark!')
+        userEvent.keyboard('{enter}')
+        
+        const commentList =  screen.getAllByTestId('listitem')
+        const latestPost =  commentList[0]
+        expect(latestPost).not.toHaveTextContent('Linda')
+        expect(latestPost).not.toHaveTextContent('Get it together Mark!')
+
+    })
 })
