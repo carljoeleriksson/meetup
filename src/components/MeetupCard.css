@@ -1,0 +1,26 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .cardWrap {
+    width: 350px;
+  }
+  
+  .img {
+    width: 350px;
+    height: 200px;
+    border-radius: 5px;
+  }
+  
+  
+  .date {
+    color: #00B894;
+  } 
+  
+  .host {
+    color: #00B894;
+  }

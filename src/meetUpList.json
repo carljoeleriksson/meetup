@@ -1,22 +1,22 @@
 [
     {
-        "Id": 1,
-        "Date": "2022-04-26 11:45",
-        "Title" :  "Meet Up One",
-        "Description" : "MeetUp One Description ",
-        "Host": "Hoster One",
-        "Image": "./images/300.png",
-        "Attend": false
+        "id": 1,
+        "date": "2022-04-26 11:45",
+        "title" :  "Meet Up One",
+        "description" : "MeetUp One Description ",
+        "host": "Hoster One",
+        "image": "",
+        "attend": false
 
     },
     {
-        "Id": 2,
-        "Date": "2023-04-26 11:45",
-        "Title" :  "Meet Up Two",
-        "Description" : "MeetUp Two Description ",
-        "Host": "Hoster Two",
-        "Image": "./images/300.png",
-        "Attend": false
+        "id": 2,
+        "date": "2023-04-26 11:45",
+        "title" :  "Meet Up Two",
+        "description" : "MeetUp Two Description ",
+        "host": "Hoster Two",
+        "image": "",
+        "attend": false
 
     }
 ]
