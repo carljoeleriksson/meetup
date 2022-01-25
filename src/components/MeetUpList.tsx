@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { act } from 'react-dom/test-utils';
 import MeetupCard from './MeetupCard';
 
 export default function MeetUpList() {
@@ -27,7 +28,11 @@ export default function MeetUpList() {
 
       let meetUpList:any = localStorage.getItem('meetUp-List')
 
-      setMeetUplist(JSON.parse(meetUpList))
+     //await act(async ()=>{
+        setMeetUplist(await JSON.parse(meetUpList))
+
+     // })
+
 
 
   }

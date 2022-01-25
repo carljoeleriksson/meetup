@@ -41,7 +41,7 @@ describe('Meet Up Card Testing', () => {
   it('shows the host of the meetup', () => {
     render(<MeetupCard data={data} />)
 
-    const hostElem = screen.getByText(/Host:*/i)
+    const hostElem = screen.getByTestId('host')
     expect(hostElem).toBeInTheDocument()
   })
 })

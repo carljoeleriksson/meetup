@@ -16,7 +16,7 @@ const MeetupCard: React.FC<Props> = ({ data }: Props) => {
  
                 <p className="date" data-testid="date">{el.Date}</p>
                 <p data-testid="description">{el.Description}</p>
-                <p className="host">{el.Host}</p>
+                <p  data-testid="host" className="host">{el.Host}</p>
             </div>
            ))}
         </>
