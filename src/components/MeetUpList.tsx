@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import MeetupCard from './MeetupCard';
 
 export default function MeetUpList() {
 
@@ -24,9 +25,9 @@ export default function MeetUpList() {
       localStorage.setItem('meetUp-List', JSON.stringify(listArr))
 
 
-      let meetUp_List:any = localStorage.getItem('meetUp-List')
+      let meetUpList:any = localStorage.getItem('meetUp-List')
 
-      setMeetUplist(JSON.parse(meetUp_List))
+      setMeetUplist(JSON.parse(meetUpList))
 
 
   }
@@ -46,31 +47,19 @@ export default function MeetUpList() {
   useEffect(() => {
 
     try {
-
     fetchMeetUpList()
-
     //storeToLocalStorage(meetUplist)
 
     }
     catch (e) {
-
       console.log(e)
-
     }
-
 
   }, [])
 
 
-  return (<>
-    {meetUplist.length > 0 && meetUplist.map((el: any) => (
+  return (
       // To be done by Ahmed from here witch div with ur component with prop meetup ID
-      <div key={el.Id}> {el.Title}, {el.Date}, {el.Description}, {el.Host}</div>
+      <MeetupCard data={meetUplist} />
     )
-    )
-    }
-  </>
-
-
-  )
 }
