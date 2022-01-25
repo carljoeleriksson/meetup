@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import Comments from '../components/Comments'
-import { mockLocalStorage } from "./utils/mockLocalStorage"
+import { mockLocalStorage } from "../utils/mockLocalStorage"
 
  const { getItemMock, setItemMock } = mockLocalStorage();
 

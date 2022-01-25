@@ -15,7 +15,7 @@ function MeetupDetails(props: any) {
 
     var meetupId: any = null
 
-    console.log(props.Id)
+    //console.log(props.Id)
 
     const search = window.location.search;
 
@@ -32,7 +32,7 @@ function MeetupDetails(props: any) {
 
             throw new Error("Meetup Id is missing!")
 
-        console.log(meetupId)
+       // console.log(meetupId)
 
 
     }
@@ -70,7 +70,7 @@ function MeetupDetails(props: any) {
             return el
         })
 
-        console.log(updatedMeetupListArr)
+       // console.log(updatedMeetupListArr)
 
 
         localStorage.setItem('meetUp-List', JSON.stringify(updatedMeetupListArr))
@@ -87,7 +87,7 @@ function MeetupDetails(props: any) {
 
         let meetupList: object = JSON.parse(meetupListStr)
 
-        console.log(meetupList)
+      //  console.log(meetupList)
 
         meetupListArr = Object.values(meetupList)
 
@@ -104,7 +104,7 @@ function MeetupDetails(props: any) {
         }
 
         )
-        console.log(singleMeetup)
+     //   console.log(singleMeetup)
 
         // return singleMeetup
     }
