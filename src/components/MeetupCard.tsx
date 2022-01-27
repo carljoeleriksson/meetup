@@ -1,84 +1,113 @@
 import React, { useEffect, useState } from 'react';
 import './MeetupCard.css'
 
-interface Props {
-    data: Array<any>
-}
+//interface Props {
+//  data: Array<any>
+//}
 
-const MeetupCard: React.FC<Props> = ({ data }: Props) => {
+//const MeetupCard: React.FC<Props> = ({ data }: Props) => {
 
-    const [meetUps, setMeetups]: Array<any> = useState([])
+function MeetupCard(props: any) {
 
-    function sortBydate(e:any) {
-        e.preventDefault();
+  let data = props.data
 
-         data = data.sort((a: any, b: any): any => {
-
-            const dateOfA = Date.parse(a.Date)
-
-            const dateOfB = Date.parse(b.Date)
-
-            //  console.log(dateOfA)
-            //  console.log(dateOfB)
-            return dateOfA - dateOfB
+  const [meetUps, setMeetups]: Array<any> = useState([])
 
 
-        })
+  async function filterUpcomingMeetup() {
 
-          setMeetups(data)
-
-
-    }
+    const now = Date.now()
 
 
-    function sortByCat(e:any) {
-        e.preventDefault();
+    data = await data.filter(function (el: any) {
 
-        data = data.sort((a: any, b: any): any => {
+      const dateinMilliSec = Date.parse(el.Date)
 
-           const dateOfA = a.Category
-
-           const dateOfB = b.Category
-
-          //      console.log(dateOfA)
-        //      console.log(dateOfB)
-           
-         //    console.log( dateOfA > dateOfB)
-
-             const result = ( dateOfA > dateOfB) ? 1 : -1
-
-             return result
+      return dateinMilliSec >= now
+    })
+  }
 
 
-       })
-       
+  async function sortByUpcomingDate(e: any) {
 
-         setMeetups(data)
+    e.preventDefault();
+
+    setMeetups([])
+
+    filterUpcomingMeetup()
 
 
-   }
-  //  useEffect( () => {
+    await data.sort((a: any, b: any): any => {
 
-   // }, [])
-    return (
-        <>
-            <button className=""  onClick={sortBydate}>Sort By Date</button>
-            <button className="" onClick={sortByCat}>Sort By Category</button>
+      const dateOfA = Date.parse(a.Date)
 
-            {data.map((el: any) => (
-                <div key={el.Id}>
-                    <h2>{el.Title}</h2>
-                    <p><img width="100" height="100" src={el.Image} alt={el.Title} /></p>
+      const dateOfB = Date.parse(b.Date)
 
-                    <p className="date" data-testid="date">{el.Date}</p>
-                    <p className="date" data-testid="cat">{el.Category}</p>
+      return dateOfA - dateOfB
 
-                    <p data-testid="description">{el.Description}</p>
-                    <p data-testid="host" className="host">{el.Host}</p>
-                </div>
-            ))}
-        </>
-    )
+
+    })
+
+    console.log(data)
+    setMeetups(data)
+
+
+  }
+
+
+  async function sortByCat(e: any) {
+    e.preventDefault();
+
+    setMeetups([])
+
+    await data.sort((a: any, b: any): any => {
+
+      const dateOfA = a.Category
+
+      const dateOfB = b.Category
+
+
+      const result = (dateOfA > dateOfB) ? 1 : -1
+
+      return result
+
+
+    })
+    console.log(data)
+
+
+    setMeetups(data)
+
+
+  }
+  useEffect(() => {
+
+
+    setMeetups(data)
+
+
+  }, [data])
+  return (
+    <>
+      <button className="Btn" onClick={sortByUpcomingDate}>Upcoming Meetup</button>
+      <button className="Btn" onClick={sortByCat}>Sort By Category</button>
+
+      {meetUps.length > 0 && meetUps.map((el: any) => (
+        <div key={el.Id}>
+          <h2>{el.Title}</h2>
+          <p><img width="100" height="100" src={el.Image} alt={el.Title} /></p>
+
+          <p className="date" data-testid="date">{el.Date}</p>
+          <p className="date" data-testid="cat">{el.Category}</p>
+
+          <p data-testid="description">{el.Description}</p>
+          <p data-testid="host" className="host">{el.Host}</p>
+        </div>
+      ))}
+
+
+    </>
+  )
 }
 
 export default MeetupCard;
