@@ -18,13 +18,15 @@ function MeetupCard(props: any) {
 
     const now = Date.now()
 
+    let updatedData = []
 
-    data = await data.filter(function (el: any) {
+    updatedData = await data.filter(function (el: any) {
 
       const dateinMilliSec = Date.parse(el.Date)
 
       return dateinMilliSec >= now
     })
+    return updatedData
   }
 
 
@@ -34,10 +36,10 @@ function MeetupCard(props: any) {
 
     setMeetups([])
 
-    filterUpcomingMeetup()
+    let filteredData = await filterUpcomingMeetup()
 
 
-    await data.sort((a: any, b: any): any => {
+    await filteredData.sort((a: any, b: any): any => {
 
       const dateOfA = Date.parse(a.Date)
 
@@ -48,8 +50,9 @@ function MeetupCard(props: any) {
 
     })
 
-    console.log(data)
-    setMeetups(data)
+    //console.log(filteredData)
+
+    setMeetups(filteredData)
 
 
   }
@@ -89,11 +92,11 @@ function MeetupCard(props: any) {
   }, [data])
   return (
     <>
-      <button className="Btn" onClick={sortByUpcomingDate}>Upcoming Meetup</button>
-      <button className="Btn" onClick={sortByCat}>Sort By Category</button>
+      <button data-testid="sortByUpcomingDate" className="Btn" onClick={sortByUpcomingDate}>Upcoming Meetup</button>
+      <button data-testid="sortByCat" className="Btn" onClick={sortByCat}>Sort By Category</button>
 
       {meetUps.length > 0 && meetUps.map((el: any) => (
-        <div key={el.Id}>
+        <div data-testid="singleMeetup" key={el.Id}>
           <h2>{el.Title}</h2>
           <p><img width="100" height="100" src={el.Image} alt={el.Title} /></p>
 
