@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import './MeetupCard.css'
 
 //interface Props {
@@ -10,8 +11,8 @@ import './MeetupCard.css'
 function MeetupCard(props: any) {
 
   let data = props.data
-
   const [meetUps, setMeetups]: Array<any> = useState([])
+  const navigate = useNavigate()
 
 
   async function filterUpcomingMeetup() {
@@ -90,13 +91,22 @@ function MeetupCard(props: any) {
 
 
   }, [data])
+
+
+
+  function goToDetails() {
+    /* history.push('/details/' + id) */
+    /* TEMPORARY */ 
+    navigate('/details/1')
+  }
+
   return (
     <>
       <button data-testid="sortByUpcomingDate" className="Btn" onClick={sortByUpcomingDate}>Upcoming Meetup</button>
       <button data-testid="sortByCat" className="Btn" onClick={sortByCat}>Sort By Category</button>
 
       {meetUps.length > 0 && meetUps.map((el: any) => (
-        <div data-testid="singleMeetup" key={el.Id}>
+        <div data-testid="singleMeetup" onClick={goToDetails} key={el.Id}>
           <h2>{el.Title}</h2>
           <p><img width="100" height="100" src={el.Image} alt={el.Title} /></p>
 
