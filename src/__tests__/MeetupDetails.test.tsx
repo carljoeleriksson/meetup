@@ -3,9 +3,7 @@ import userEvent from '@testing-library/user-event'
 import MeetupDetails from '../pages/MeetupDetails'
 import { mockLocalStorage } from '../utils/mockLocalStorage'
 
-
 const { getItemMock, setItemMock } = mockLocalStorage();
-
 
 describe('Meetup Details Page', () => {
 
