@@ -1,70 +1,91 @@
 import React, { useEffect, useState } from 'react';
-import { act } from 'react-dom/test-utils';
 import MeetupCard from './MeetupCard';
 
 export default function MeetUpList() {
 
-  const [meetUplist, setMeetUplist]: Array<any> = useState([])
+  const [meetupList, setMeetupList]: Array<any> = useState([])
 
-  let List: Array<any>
+  const fetchMeetupList = async () => {
+      //Get default Meetups from JSON-file
+      const importedMeetups = await import("../meetUpList.json");
+      
+      let defaultMeetups: Array<any>= []
+      defaultMeetups = importedMeetups.default
+    
+      //Save default meetups in localStorage
+      localStorage.setItem('meetUp-List', JSON.stringify(defaultMeetups))
 
-  const fetchMeetUpList = async () => {
+      let meetupListFromLocalStorage:any = localStorage.getItem('meetUp-List')
+      
+      setMeetupList(await JSON.parse(meetupListFromLocalStorage))
+  }
 
+  async function filterUpcomingMeetup() {
+    const now = Date.now()
+    let updatedData = []
 
-      const meetUplist = await import("../meetUpList.json");
+    updatedData = await meetupList.filter(function (el: any) {
+      const dateinMilliSec = Date.parse(el.Date)
+      return dateinMilliSec >= now
+    })
 
-      let listArr: Array<any>= []
+    return updatedData
+  }
 
-      listArr = meetUplist.default
+  async function sortByUpcomingDate(e: any) {
+    e.preventDefault();
+    setMeetupList([])
 
-      //const listsFetch =  await fetch('/meetUpList.json')
-      //console.log(listArr)
+    let filteredData = await filterUpcomingMeetup()
 
+    await filteredData.sort((a: any, b: any): any => {
+      const dateOfA = Date.parse(a.Date)
+      const dateOfB = Date.parse(b.Date)
 
-      // storeToLocalStorage(listArr)
-      // save  mettup list to local storage 
-      localStorage.setItem('meetUp-List', JSON.stringify(listArr))
+      return dateOfA - dateOfB
+    })
 
+    setMeetupList(filteredData)
+  }
 
-      let meetUpList:any = localStorage.getItem('meetUp-List')
+  async function sortByCat(e: any) {
+    e.preventDefault();
+    setMeetupList([])
 
-     //await act(async ()=>{
-        setMeetUplist(await JSON.parse(meetUpList))
+    await meetupList.sort((a: any, b: any): any => {
 
-     // })
+      const dateOfA = a.Category
+      const dateOfB = b.Category
 
-
+      const result = (dateOfA > dateOfB) ? 1 : -1
+      return result
+    })
 
   }
 
-  //const storeToLocalStorage = (meetUplist: Array<any>) => {
-
-  //  meetUplist.length > 0 && localStorage.setItem('meetUp-List', JSON.stringify(meetUplist))
-
-  //}
-
-  //const getFromLocalStorage = (meetUplist: Array<any>) => {
-
-  //  meetUplist.length > 0 && localStorage.getItem('meetUp-List', JSON.stringify(meetUplist))
-
-  //}
+function renderMeetupList() {
+    return meetupList.map((meetup: any) => (
+        <MeetupCard {...meetup} key={meetup.Id}/>
+    ))
+  
+  }
 
   useEffect(() => {
-
     try {
-    fetchMeetUpList()
-    //storeToLocalStorage(meetUplist)
-
+        fetchMeetupList()
     }
     catch (e) {
-      console.log(e)
+        console.log(e)
     }
-
   }, [])
 
+  return <>
+      <div className='nav-sort-wrapper'>
+        <button data-testid="sortByUpcomingDate" className="Btn" onClick={sortByUpcomingDate}>Upcoming Meetup</button>
+        <button data-testid="sortByCat" className="Btn" onClick={sortByCat}>Sort By Category</button>
+      </div>
 
-  return (
-      // To be done by Ahmed from here witch div with ur component with prop meetup ID
-      <MeetupCard data={meetUplist} />
-    )
+      {meetupList.length > 0 && renderMeetupList()}
+    </>
+    
 }
