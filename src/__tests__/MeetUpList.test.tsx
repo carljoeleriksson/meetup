@@ -5,6 +5,8 @@ import { act } from 'react-dom/test-utils';
 import { BrowserRouter } from 'react-router-dom';
 import MeetUpList from '../components/MeetUpList';
 
+/* jest.mock('./meetUpList.json') */
+
 describe('Meet Up list Testing', () => {
 
   it('Renders meetup-list from JSON file/', async () => {
@@ -38,15 +40,16 @@ describe('sorting and filtering', () => {
 
     const meetupCards = screen.queryAllByTestId('singleMeetup')
         meetupCards.forEach((el, index) => {
-            // the past one of our meetups data list
-            expect(el).not.toHaveTextContent("Meet Up Two")
-        
-            if(index == 0)
-            // most recent meetup should be first
-            expect(el).toHaveTextContent("Meet Up Third")
-            
-            else if(index == 1)
-            expect(el).toHaveTextContent("Meet Up One")
+
+            if(index === 0){
+                // most recent meetup should be first
+                expect(el).toHaveTextContent("Meet Up Third")
+            } else if(index === 1) {
+                expect(el).toHaveTextContent("Meet Up One")
+            } else if(index === 2)
+            // last since that's the past one of our default meetups
+                expect(el).toHaveTextContent("Meet Up Two")
+
       })
   })
 
@@ -55,18 +58,28 @@ describe('sorting and filtering', () => {
       const sortByCatBtn = screen.getByRole('button', {name: "Sort By Category"})
       userEvent.click(sortByCatBtn)
 
-        const meetupCards = screen.queryAllByTestId('singleMeetup')
-        meetupCards.forEach((el, index) => {
+      const meetupCards = screen.queryAllByTestId('singleMeetup')
+      meetupCards.forEach((el, index) => {
+        if(index === 0){
+          expect(el).toHaveTextContent("Music")
+        } else if (index === 1) {
+          expect(el).toHaveTextContent("Sport")
+        } else if (index === 2) {
+          expect(el).toHaveTextContent("Art")
+        }
+      })
+  })
+
+  it('only shows attended when clicking attended-btn', () => {
+      const attendedBtn = screen.getByRole('button', {name: /attended/i})
+      userEvent.click(attendedBtn)
+
+      const meetupCards = screen.queryAllByTestId('singleMeetup')
+      meetupCards.forEach((el, index) => {
           if(index === 0){
-            expect(el).toHaveTextContent("Art")
-          } else if (index === 1) {
-            expect(el).toHaveTextContent("Music")
-          } else if (index === 2) {
-            expect(el).toHaveTextContent("Sport")
+            expect(el).toHaveTextContent("Meet Up One")
           }
       })
-      
-
 
   })
 

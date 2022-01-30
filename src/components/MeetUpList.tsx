@@ -27,11 +27,11 @@ export default function MeetUpList() {
       
   }
 
-function filterFutureMeetups() {
+function filterFutureMeetups(list: any) {
     const now = Date.now()
     let futureMeetups = []
 
-    futureMeetups = allMeetups.filter(function (el: any) {
+    futureMeetups = list.filter(function (el: any) {
       const dateinMilliSec = Date.parse(el.Date)
       return dateinMilliSec >= now
     })
@@ -39,11 +39,11 @@ function filterFutureMeetups() {
     return futureMeetups
   }
 
-function filterPastMeetups() {
+function filterPastMeetups(list: any) {
     const now = Date.now()
     let pastMeetups = []
 
-    pastMeetups = allMeetups.filter(function (el: any) {
+    pastMeetups = list.filter(function (el: any) {
       const dateinMilliSec = Date.parse(el.Date)
       return dateinMilliSec < now
     })
@@ -51,22 +51,20 @@ function filterPastMeetups() {
     return pastMeetups
   }
 
-  async function sortByDate(e: any) {
+  function sortByDate(e: any) {
     e.preventDefault();
     setMeetupList([])
 
-    let filteredData = await filterFutureMeetups()
-    console.log('filteredData', filteredData);
-    
+    let sortedArr = [...allMeetups]
 
-    await filteredData.sort((a: any, b: any): any => {
+    sortedArr.sort((a: any, b: any): any => {
       const dateOfA = Date.parse(a.Date)
       const dateOfB = Date.parse(b.Date)
 
       return dateOfA - dateOfB
     })
 
-    setMeetupList(filteredData)
+    setMeetupList(sortedArr)
   }
 
   async function sortByCat(e: any) {
@@ -94,17 +92,19 @@ function filterPastMeetups() {
   }
 
 function renderMeetupList() {
-    return meetupList.map((meetup: any) => (
+    const futureMeetups = filterFutureMeetups(meetupList)
+
+    return futureMeetups.map((meetup: any) => (
       <MeetupCard {...meetup} key={meetup.Id}/>
     ))
 }
 
-/* function renderPastMeetupList() {
-    
+function renderPastMeetupList() {
+    const pastMeetups = filterPastMeetups(meetupList)
     return pastMeetups.map((meetup: any) => (
         <MeetupCard {...meetup} key={meetup.Id}/>
     ))
-  } */
+  }
 
 
   useEffect(() => {
@@ -127,10 +127,10 @@ function renderMeetupList() {
       </div>
       <hr />
 
-      {/* <div className='past-meetups'>
+      <div className='past-meetups'>
           <h3>Past Meetups</h3>
           {meetupList.length > 0 && renderPastMeetupList()}
-      </div> */}
+      </div>
       
     </>
     
