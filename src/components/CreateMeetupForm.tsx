@@ -11,11 +11,11 @@ function todaysDate() {
 function CreateMeetupForm() {
     function handleSubmit(e: any) {
             e.preventDefault()
-            /* console.log(e.target[0].value) */
   
             const existingMeetups = JSON.parse(localStorage.getItem('meetUp-List')??'[]')
-
-            let highestId=Math.max(existingMeetups.map((meetup:any)=>meetup.Id)) ?? 0;
+            //Get highest id in array and later give the new meetup highestId + 1
+            const arrOfIds = existingMeetups.map((meetup:any)=>{console.log(meetup.Id); return meetup.Id})
+            let highestId=Math.max(...arrOfIds) ?? 0;
 
             const target = e.target as typeof e.target & {
                 title: { value: string },
@@ -26,21 +26,22 @@ function CreateMeetupForm() {
                 category: { value: string },
                 image: { value: string },
               };
-
-            // let title=e.target[0].value;
+            
             const newMeetup = {
                 Id:  highestId + 1,
-                Title: target.title,
-                Date: `${target.date} ${target.time}`,
-                Description: target.description,
-                Host: target.host,
-                Category: target.category,
-                Image: target.image,
+                Title: target.title?.value,
+                Date: `${target.date?.value} ${target.time?.value}`,
+                Description: target.description?.value,
+                Host: target.host?.value,
+                Category: target.category?.value,
+                Image: target.image?.value,
                 Attend: false
             }
             
-            const newArr = [newMeetup, ...existingMeetups];
-            localStorage.setItem('meetUp-List', JSON.stringify(newArr))
+            const newArr: any = [newMeetup, ...existingMeetups];
+            /* const newArr: any = []; */
+           
+            localStorage.setItem('meetUp-List', JSON.stringify(newArr));
     }
 
     return <>
@@ -90,9 +91,7 @@ function CreateMeetupForm() {
                 type="text" 
             />
             <button className='create-btn' type="submit">Create Meetup</button>   
-        </form>
-    
-    
+        </form>    
     </>
 }
 
