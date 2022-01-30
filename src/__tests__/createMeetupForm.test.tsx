@@ -1,7 +1,9 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { mockLocalStorage } from '../utils/mockLocalStorage'
 import CreateMeetupForm from '../components/CreateMeetupForm'
+
+/* import { LocalStorageMock } from '@react-mock/localstorage'; */
 
 const { getItemMock, setItemMock } = mockLocalStorage();
 
@@ -73,30 +75,55 @@ describe('createMeetupForm - Component for creating a new Meetup', () => {
 
 })
 
+ 
+const setupForm = (newMeetup: any) => {
+    userEvent.type(screen.getByLabelText(/title:?/i), newMeetup.Title)
+    userEvent.type(screen.getByLabelText(/date:?/i), newMeetup.Date)
+    userEvent.type(screen.getByLabelText(/time:?/i), newMeetup.Time)
+    userEvent.type(screen.getByLabelText(/description:?/i), newMeetup.Description.replace(' ', '{space}'))
+    userEvent.type(screen.getByLabelText(/host:?/i), newMeetup.Host)
+    userEvent.type(screen.getByLabelText(/image:?/i), newMeetup.Image)
+    userEvent.type(screen.getByLabelText(/category:?/i), newMeetup.Category)
 
-const submitForm = ({ getByText, getByLabelText }, { name }) => {
-    userEvent.type(screen.getByLabelText(/title:?/i), 'Meetup!')
-    userEvent.type(screen.getByLabelText(/date:?/i), '2022-03-03')
-    userEvent.type(screen.getByLabelText(/time:?/i), '20:00')
-    userEvent.type(screen.getByLabelText(/description:?/i), 'This{space}is{space}a{space}meetup')
-    userEvent.type(screen.getByLabelText(/host:?/i), 'Joel')
-    userEvent.type(screen.getByLabelText(/image:?/i), 'www.src.se')
-    userEvent.type(screen.getByLabelText(/category:?/i), 'Sports')
-    
-    const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
-    userEvent.click(createMeetupBtn)
-    const localStorageMeetup = localStorage.getItemMock(meetup)
-    expect
+
   };
-
+ 
 
 describe('Create Meetup Button functions', () => {
     beforeEach(() => {
+        getItemMock.mockReturnValue('[{"Id":1,"Date":"2022-04-26 11:45","Title":"Meet Up One","Description":"MeetUp One Description","Host":"Omar","Image":"http://example.com/image.jpg","Attend":false},{"Id":2,"Date":"2023-04-26 11:45","Title":"Meet Up Two","Description":"MeetUp Two Description ","Host":"Hoster Two","Image":"http://example.com/image.jpg","Attend":false}]');
+
         render(<CreateMeetupForm/>)
     })
+    it('render a meetup button', () => {
+        const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
+        expect(createMeetupBtn).toBeInTheDocument()
+    })
 
-    it('saves the meetup to localStorage when "create meetup"-btn is clicked', () => {
+    it('saves the meetup to localStorage when "create meetup"-btn is clicked', async () => {
+        setupForm(newMeetup)
+
+        setItemMock.mockImplementation(() => {
+            throw Error()
+  })
+        const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
+        userEvent.click(createMeetupBtn);
+
+        await waitFor(() => expect(setItemMock).toHaveBeenCalledTimes(1));
+
+        console.log('Hej', setItemMock.mock.calls[0][1]);
+        const item=(JSON.parse(await setItemMock.mock.calls[0][1]) as Array<any>)[0];
         
+        expect(setItemMock.mock.calls[0][0]).toBe('meetUp-List');
+        expect(item.Title).toBe(newMeetup.Title);
+        
+        
+
+        // const existingMeetups = localStorage.getItem(meetups)
+        // const newArr = {newMeetup, ...existingMeetups}
+        //  localStorage.setItem('meetUp-List', JSON.stringyfy(newArr))
+
+
     })
 
     //gives you text feedback when the meetup is saved to localStorage
