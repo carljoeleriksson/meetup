@@ -103,9 +103,6 @@ describe('Create Meetup Button functions', () => {
     it('saves the meetup to localStorage when "create meetup"-btn is clicked', async () => {
         setupForm(newMeetup)
 
-        setItemMock.mockImplementation(() => {
-            throw Error()
-  })
         const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
         userEvent.click(createMeetupBtn);
 
