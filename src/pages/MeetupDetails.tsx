@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom'
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
 import Comments from '../components/Comments';
+
 
 
 function MeetupDetails(props: any) {
 
     const [isAttended, setIsAttended] = useState<boolean>(false)
-
     const [meetUp, setMeetUp]: Array<any> = useState([])
 
-    var meetupListArr: Array<any> = useState([])
+    let meetupListArr: Array<any> = useState([])
+    let singleMeetup: Array<any> = []
+    let meetupId: any = null
 
-    var singleMeetup: Array<any> = []
-
-    var meetupId: any = null
-
+    const { id } = useParams()
+    console.log('id: ', id);
+    
     //console.log(props.Id)
 
     const search = window.location.search;
 
-    const params = new URLSearchParams(search);
+    /* const params = new URLSearchParams(search); */
 
 
     function getMeetupIdFromUrl() {
 
-       // meetupId = params.get('id');
+       meetupId = id
 
-       meetupId = props.Id
+       /* meetupId = props.Id */
 
         if (!meetupId)
 
@@ -149,7 +151,8 @@ function MeetupDetails(props: any) {
 
 
     return <>
-        <button className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</button>
+        
+        <Link to="/" className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</Link>
 
         {meetUp.length > 0 && meetUp.map((el: any) => (
 

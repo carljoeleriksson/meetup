@@ -1,70 +1,137 @@
 import React, { useEffect, useState } from 'react';
-import { act } from 'react-dom/test-utils';
 import MeetupCard from './MeetupCard';
 
 export default function MeetUpList() {
 
-  const [meetUplist, setMeetUplist]: Array<any> = useState([])
+  const [allMeetups, setAllMeetups]: Array<any> = useState([])
+  const [meetupList, setMeetupList]: Array<any> = useState([])
 
-  let List: Array<any>
+  const fetchMeetupList = async () => {
+      let meetupListFromLocalStorage:any = localStorage.getItem('meetUp-List')
 
-  const fetchMeetUpList = async () => {
+      if(!meetupListFromLocalStorage){
+          //Get default Meetups from JSON-file
+          const importedMeetups = await import("../meetUpList.json");
+                
+          let defaultMeetups: Array<any>= []
+          defaultMeetups = importedMeetups.default
 
-
-      const meetUplist = await import("../meetUpList.json");
-
-      let listArr: Array<any>= []
-
-      listArr = meetUplist.default
-
-      //const listsFetch =  await fetch('/meetUpList.json')
-      //console.log(listArr)
-
-
-      // storeToLocalStorage(listArr)
-      // save  mettup list to local storage 
-      localStorage.setItem('meetUp-List', JSON.stringify(listArr))
-
-
-      let meetUpList:any = localStorage.getItem('meetUp-List')
-
-     //await act(async ()=>{
-        setMeetUplist(await JSON.parse(meetUpList))
-
-     // })
-
-
-
+          //Save default meetups in localStorage
+          localStorage.setItem('meetUp-List', JSON.stringify(defaultMeetups))
+          setAllMeetups(defaultMeetups)
+          setMeetupList(defaultMeetups)
+      } else {
+        setAllMeetups(JSON.parse(meetupListFromLocalStorage))
+        setMeetupList(JSON.parse(meetupListFromLocalStorage))
+      }
+      
   }
 
-  //const storeToLocalStorage = (meetUplist: Array<any>) => {
+function filterFutureMeetups(list: any) {
+    const now = Date.now()
+    let futureMeetups = []
 
-  //  meetUplist.length > 0 && localStorage.setItem('meetUp-List', JSON.stringify(meetUplist))
+    futureMeetups = list.filter(function (el: any) {
+      const dateinMilliSec = Date.parse(el.Date)
+      return dateinMilliSec >= now
+    })
 
-  //}
+    return futureMeetups
+  }
 
-  //const getFromLocalStorage = (meetUplist: Array<any>) => {
+function filterPastMeetups(list: any) {
+    const now = Date.now()
+    let pastMeetups = []
 
-  //  meetUplist.length > 0 && localStorage.getItem('meetUp-List', JSON.stringify(meetUplist))
+    pastMeetups = list.filter(function (el: any) {
+      const dateinMilliSec = Date.parse(el.Date)
+      return dateinMilliSec < now
+    })
 
-  //}
+    return pastMeetups
+  }
+
+  function sortByDate(e: any) {
+    e.preventDefault();
+    setMeetupList([])
+
+    let sortedArr = [...allMeetups]
+
+    sortedArr.sort((a: any, b: any): any => {
+      const dateOfA = Date.parse(a.Date)
+      const dateOfB = Date.parse(b.Date)
+
+      return dateOfA - dateOfB
+    })
+
+    setMeetupList(sortedArr)
+  }
+
+  async function sortByCat(e: any) {
+    
+    e.preventDefault();
+    setMeetupList([])
+    const sortedArr = [...allMeetups]
+
+    sortedArr.sort((a: any, b: any): any => {
+      const catA = a.Category
+      const catB = b.Category
+
+      const result = (catA > catB) ? 1 : -1
+      return result
+    })
+    setMeetupList(sortedArr)
+  }
+
+  function filterAttended(e: any) {
+      e.preventDefault()
+      setMeetupList([])
+      
+      const attendedMeetups = allMeetups.filter((meetup: any) => meetup.Attend === true)
+      setMeetupList(attendedMeetups)
+  }
+
+function renderMeetupList() {
+    const futureMeetups = filterFutureMeetups(meetupList)
+
+    return futureMeetups.map((meetup: any) => (
+      <MeetupCard {...meetup} key={meetup.Id}/>
+    ))
+}
+
+function renderPastMeetupList() {
+    const pastMeetups = filterPastMeetups(meetupList)
+    return pastMeetups.map((meetup: any) => (
+        <MeetupCard {...meetup} key={meetup.Id}/>
+    ))
+  }
+
 
   useEffect(() => {
-
     try {
-    fetchMeetUpList()
-    //storeToLocalStorage(meetUplist)
-
+        fetchMeetupList()
     }
     catch (e) {
-      console.log(e)
+        console.log(e)
     }
-
   }, [])
 
+  return <>
+      <div className='nav-sort-wrapper'>
+        <button className="Btn" onClick={sortByDate}>Sort By Date</button>
+        <button className="Btn" onClick={sortByCat}>Sort By Category</button>
+        <button className="Btn" onClick={filterAttended}>Attended</button>
+      </div>
+      <div className='future-meetups'>
+          {meetupList.length > 0 && renderMeetupList()}
+      </div>
+      <hr />
 
-  return (
-      // To be done by Ahmed from here witch div with ur component with prop meetup ID
-      <MeetupCard data={meetUplist} />
-    )
+      <div className='past-meetups'>
+          <h3>Past Meetups</h3>
+          {meetupList.length > 0 && renderPastMeetupList()}
+      </div>
+      
+    </>
+    
 }

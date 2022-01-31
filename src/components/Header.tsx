@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import {FaMeetup} from 'react-icons/fa'
 
 function Header() {
   return <header>
-    <a href="HomePage" className="header-logo"><FaMeetup /></a>
+    <Link to="/" className="header-logo"><FaMeetup /></Link>
   </header>
 }
 

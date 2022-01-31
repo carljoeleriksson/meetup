@@ -124,7 +124,9 @@ h3 {
   font-size: 2rem;
   margin: 5px 0px;
 }
-
+a {
+  text-decoration: none;
+}
 /* _____________MEETUP DETAILS_____________ */
 
 .meetup-details-wrapper img{
@@ -189,6 +191,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .back-btn svg{

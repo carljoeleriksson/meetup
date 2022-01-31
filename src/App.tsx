@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link} from 'react-router-dom'
 
 import Home from './pages/HomePage'
 import MeetupDetails from './pages/MeetupDetails'
@@ -17,10 +17,9 @@ function App() {
       
         <main>
           <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/details" element={<MeetupDetails Id="1"/>} />
-            <Route path="/create-meetup" element={<CreateMeetupForm />} />
-
+              <Route path="/" element={<Home/>} />
+              <Route path="/details/:id" element={<MeetupDetails/>} />
+              <Route path="/create-meetup" element={<CreateMeetupForm />} />
           </Routes>  
 
           

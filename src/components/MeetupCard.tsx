@@ -1,115 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import './MeetupCard.css'
 
-//interface Props {
-//  data: Array<any>
-//}
 
-//const MeetupCard: React.FC<Props> = ({ data }: Props) => {
+function MeetupCard(meetup: any) {
+  
+  let {Id, Date, Title, Description, Host, Image, Category } = meetup
+  
+  const navigate = useNavigate()
 
-function MeetupCard(props: any) {
-
-  let data = props.data
-
-  const [meetUps, setMeetups]: Array<any> = useState([])
-
-
-  async function filterUpcomingMeetup() {
-
-    const now = Date.now()
-
-    let updatedData = []
-
-    updatedData = await data.filter(function (el: any) {
-
-      const dateinMilliSec = Date.parse(el.Date)
-
-      return dateinMilliSec >= now
-    })
-    return updatedData
+function goToDetails() {
+   navigate('/details/' + Id)
   }
 
+  return (<>
+        <div data-testid="singleMeetup" onClick={goToDetails} key={Id}>
+            <h2>{Title}</h2>
+            <p><img width="100" height="100" src={Image} alt={Title} /></p>
 
-  async function sortByUpcomingDate(e: any) {
+            <p className="date" data-testid="date">{Date}</p>
+            <p className="date" data-testid="cat">{Category}</p>
 
-    e.preventDefault();
-
-    setMeetups([])
-
-    let filteredData = await filterUpcomingMeetup()
-
-
-    await filteredData.sort((a: any, b: any): any => {
-
-      const dateOfA = Date.parse(a.Date)
-
-      const dateOfB = Date.parse(b.Date)
-
-      return dateOfA - dateOfB
-
-
-    })
-
-    //console.log(filteredData)
-
-    setMeetups(filteredData)
-
-
-  }
-
-
-  async function sortByCat(e: any) {
-    e.preventDefault();
-
-    setMeetups([])
-
-    await data.sort((a: any, b: any): any => {
-
-      const dateOfA = a.Category
-
-      const dateOfB = b.Category
-
-
-      const result = (dateOfA > dateOfB) ? 1 : -1
-
-      return result
-
-
-    })
-    console.log(data)
-
-
-    setMeetups(data)
-
-
-  }
-  useEffect(() => {
-
-
-    setMeetups(data)
-
-
-  }, [data])
-  return (
-    <>
-      <button data-testid="sortByUpcomingDate" className="Btn" onClick={sortByUpcomingDate}>Upcoming Meetup</button>
-      <button data-testid="sortByCat" className="Btn" onClick={sortByCat}>Sort By Category</button>
-
-      {meetUps.length > 0 && meetUps.map((el: any) => (
-        <div data-testid="singleMeetup" key={el.Id}>
-          <h2>{el.Title}</h2>
-          <p><img width="100" height="100" src={el.Image} alt={el.Title} /></p>
-
-          <p className="date" data-testid="date">{el.Date}</p>
-          <p className="date" data-testid="cat">{el.Category}</p>
-
-          <p data-testid="description">{el.Description}</p>
-          <p data-testid="host" className="host">{el.Host}</p>
+            <p data-testid="description">{Description}</p>
+            <p data-testid="host" className="host">{Host}</p>
         </div>
-      ))}
-
-
-    </>
+        </>
   )
 }
 

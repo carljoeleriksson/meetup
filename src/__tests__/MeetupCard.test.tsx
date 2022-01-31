@@ -1,6 +1,7 @@
 import { act, render, screen } from '@testing-library/react';
 import MeetupCard from '../components/MeetupCard';
 import userEvent from '@testing-library/user-event'
+import { BrowserRouter } from 'react-router-dom';
 
 
 const data = [{
@@ -54,66 +55,45 @@ const data = [{
 
     }
 ]
-describe('Meet Up Card Testing', () => {
 
-  it('component renders', () => {
-    render(<MeetupCard data={data} />)
-  })  
+describe('Meet Up Card Testing', () => {
+  beforeEach(() => {
+    render(
+      <BrowserRouter>
+        <MeetupCard data={data} />
+      </BrowserRouter>
+    )
+  })
+
+
+  it('component renders', () => {})  
 
   it('shows the date', () => {
-    render(<MeetupCard data={data} />)
       
       const dateElem = screen.getByTestId('date')
       expect(dateElem).toBeInTheDocument()
   })
+  
   it('shows the title of the meetup', () => {
-      render(<MeetupCard data={data} />)
 
       const headingElem = screen.getByRole('heading')
       expect(headingElem).toBeInTheDocument()
   })
   
   it('shows a description of the meetup', () => {
-    render(<MeetupCard data={data} />)
 
     const descElem = screen.getByTestId('description')
     expect(descElem).toBeInTheDocument()
   })
 
   it('shows the host of the meetup', () => {
-    render(<MeetupCard data={data} />)
 
     const hostElem = screen.getByTestId('host')
     expect(hostElem).toBeInTheDocument()
   })
 
-  it('Sort meetups by Upcoming ones', async () => {
-
-    render(<MeetupCard data={data2} />)
-    const sortByUpcomingDateBtn = screen.getByTestId("sortByUpcomingDate")
-
-
-    await act(async () => {
-
-    userEvent.click(sortByUpcomingDateBtn)
-
-  
-    })
-  
-    const elements = screen.getAllByTestId('singleMeetup')
-    elements.forEach((el, index) => {
-      // the past one of our meetups data list
-    expect(el).not.toHaveTextContent("Meet Up Two")
-    
-    if(index == 0)
-    // most recent meetup should be first
-     expect(el).toHaveTextContent("Meet Up Third")
-     else if(index == 1)
-     expect(el).toHaveTextContent("Meet Up One")
-  })
-
-// to do test sort by category
-
-  })
-
 })
+
+
+
+
