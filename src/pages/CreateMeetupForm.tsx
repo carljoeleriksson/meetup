@@ -52,6 +52,7 @@ function CreateMeetupForm() {
 
     return <>
         <h2>Create Meetup</h2>
+        <div className='create-meetup-wrapper'>
         <form onSubmit={handleSubmit}>
             <label htmlFor="title-input">Title</label>
             <input 
@@ -98,6 +99,7 @@ function CreateMeetupForm() {
             />
             <button className='create-btn' type="submit">Create Meetup</button>   
         </form>    
+        </div>
     </>
 }
 

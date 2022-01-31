@@ -344,3 +344,22 @@ input {
   color: var(--clr-green);
   font-weight: 700;
 }
+
+/*________________CREATE MEETUP__________________*/
+.create-meetup-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.create-meetup-wrapper form{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
+
+
+.create-meetup-wrapper .create-btn { grid-column: 1/3;}

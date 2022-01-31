@@ -1,17 +1,31 @@
 import { screen, render } from "@testing-library/react"
 import userEvent from '@testing-library/user-event'
+import { BrowserRouter } from "react-router-dom";
 import MeetupDetails from '../pages/MeetupDetails'
 import { mockLocalStorage } from '../utils/mockLocalStorage'
 
 const { getItemMock, setItemMock } = mockLocalStorage();
+
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: () => ({
+    id: 1
+  })
+}));
+
 
 describe('Meetup Details Page', () => {
 
     beforeEach(()=>{
 
       getItemMock.mockReturnValue('[{"Id":1,"Date":"2022-04-26 11:45","Title":"Meet Up One","Description":"MeetUp One Description","Host":"Omar","Image":"http://example.com/image.jpg","Attend":false},{"Id":2,"Date":"2023-04-26 11:45","Title":"Meet Up Two","Description":"MeetUp Two Description ","Host":"Hoster Two","Image":"http://example.com/image.jpg","Attend":false}]');
-      
-      render(<MeetupDetails Id="1"/>)
+
+      render(
+        <BrowserRouter>
+            <MeetupDetails/>
+        </BrowserRouter>
+      )
 
     })
 
@@ -71,7 +85,7 @@ describe('Meetup Details Page', () => {
     it('shows a back button', () => {
      //   render(<MeetupDetails Id="1"/>)
         
-        const backBtn = screen.getByRole('button', {name: /back/i})
+        const backBtn = screen.getByText(/back/i)
         expect(backBtn).toBeInTheDocument()
     })
 
@@ -83,7 +97,11 @@ describe('Attend button functions', () =>{
 
         getItemMock.mockReturnValue('[{"Id":1,"Date":"2022-04-26 11:45","Title":"Meet Up One","Description":"MeetUp One Description ","Host":"Hoster One","Image":"https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80","Attend":false},{"Id":2,"Date":"2023-04-26 11:45","Title":"Meet Up Two","Description":"MeetUp Two Description ","Host":"Hoster Two","Image":"https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80","Attend":false}]');
         
-        render(<MeetupDetails Id="1"/>)
+        render(
+          <BrowserRouter>
+            <MeetupDetails />
+          </BrowserRouter>
+        )
   
       })
 

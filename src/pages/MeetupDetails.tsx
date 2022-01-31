@@ -155,7 +155,6 @@ function MeetupDetails(props: any) {
         <Link to="/" className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</Link>
 
         {meetUp.length > 0 && meetUp.map((el: any) => (
-
             <div key={el.Id} className="meetup-details-wrapper">
                 <img src={el.Image} alt={el.Title} />
                 <button className='attend-btn' onClick={attendClick}>{!isAttended ? 'Attend' : 'Unattend'}</button>
