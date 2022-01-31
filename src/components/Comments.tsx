@@ -145,8 +145,9 @@ function getMeetupId(){
     }
 
     return <>
-        <button className='comment-btn icon-btn' onClick={commentClick}><FaCommentAlt /></button>
-        <form className='comments-form' onSubmit={handleSubmit} style={{display: commentFormHidden ? 'none' : 'block'}}>
+        <button className='comment-btn icon-btn' onClick={commentClick}>Comment <FaCommentAlt /></button>
+        <div className='comments-section'>
+        <form className='comments-form' onSubmit={handleSubmit} style={{display: commentFormHidden ? 'none' : 'flex'}}>
             <input 
                 id='name'
                 name='name'
@@ -165,7 +166,8 @@ function getMeetupId(){
             />
             <button className='send-btn' type="submit">Send</button>    
         </form>
-
+        </div>
+        
         <div className="comments-list">
             {commentList[0] && listItems()}
         </div>

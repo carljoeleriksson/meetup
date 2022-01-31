@@ -34,7 +34,7 @@ function CreateMeetupForm() {
             const newMeetup = {
                 Id:  highestId + 1,
                 Title: target.title?.value,
-                Date: `${target.date?.value} ${target.time?.value}`,
+                Date: `${target.date?.value} @ ${target.time?.value}`,
                 Description: target.description?.value,
                 Host: target.host?.value,
                 Category: target.category?.value,

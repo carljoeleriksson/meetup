@@ -1,20 +1,16 @@
-
+/* 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
+  } */
   
-  .cardWrap {
-    width: 350px;
-  }
-  
-  .img {
-    width: 350px;
-    height: 200px;
+/*   .img {
+    
+    height: auto;
     border-radius: 5px;
-  }
+  } */
   
   
   .date {

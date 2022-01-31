@@ -119,19 +119,18 @@ function renderPastMeetupList() {
 
   return <>
       <div className='nav-sort-wrapper'>
-        <button className="Btn" onClick={sortByDate}>Sort By Date</button>
-        <button className="Btn" onClick={sortByCat}>Sort By Category</button>
-        <button className="Btn" onClick={filterAttended}>Attended</button>
-        <Link to="/create-meetup" className='Btn'>Create Meetup</Link>
+        <button className="nav-btn" onClick={sortByDate}>Sort By Date</button>
+        <button className="nav-btn" onClick={sortByCat}>Sort By Category</button>
+        <button className="nav-btn" onClick={filterAttended}>Attended</button>
+        <Link to="/create-meetup" className='nav-btn'>Create Meetup</Link>
 
       </div>
-      <div className='future-meetups'>
+      <div className='future-meetups meetups'>
           {meetupList.length > 0 && renderMeetupList()}
       </div>
       <hr />
-
-      <div className='past-meetups'>
-          <h3>Past Meetups</h3>
+      <h3>Past Meetups</h3>
+      <div className='past-meetups meetups'>
           {meetupList.length > 0 && renderPastMeetupList()}
       </div>
       
