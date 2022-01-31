@@ -363,3 +363,7 @@ input {
 }
 
 .create-meetup-wrapper .create-btn { grid-column: 1/3;}
+
+.create-meetup-wrapper .back-btn {
+  left:18rem;
+}
