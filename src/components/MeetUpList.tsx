@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom'
 import MeetupCard from './MeetupCard';
 
 export default function MeetUpList() {
@@ -121,6 +122,8 @@ function renderPastMeetupList() {
         <button className="Btn" onClick={sortByDate}>Sort By Date</button>
         <button className="Btn" onClick={sortByCat}>Sort By Category</button>
         <button className="Btn" onClick={filterAttended}>Attended</button>
+        <Link to="/create-meetup" className='Btn'>Create Meetup</Link>
+
       </div>
       <div className='future-meetups'>
           {meetupList.length > 0 && renderMeetupList()}

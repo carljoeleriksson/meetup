@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function todaysDate() {
   const current = new Date();
@@ -10,6 +10,9 @@ function todaysDate() {
 
 
 function CreateMeetupForm() {
+    const navigate = useNavigate()
+
+    
     function handleSubmit(e: any) {
             e.preventDefault()
   
@@ -43,6 +46,8 @@ function CreateMeetupForm() {
             /* const newArr: any = []; */
            
             localStorage.setItem('meetUp-List', JSON.stringify(newArr));
+            
+            navigate('/')
     }
 
     return <>
