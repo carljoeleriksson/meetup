@@ -1,7 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { mockLocalStorage } from '../utils/mockLocalStorage'
-import CreateMeetupForm from '../components/CreateMeetupForm'
+import CreateMeetupForm from '../pages/CreateMeetupForm'
+import { BrowserRouter } from "react-router-dom";
 
 /* import { LocalStorageMock } from '@react-mock/localstorage'; */
 
@@ -20,7 +21,11 @@ const newMeetup = {
 
 describe('createMeetupForm - Component for creating a new Meetup', () => {
     beforeEach(()=>{
-        render(<CreateMeetupForm/>)
+        render(
+            <BrowserRouter>
+                <CreateMeetupForm/>
+            </BrowserRouter>
+            )
       })
 
     it('renders without crashing', () => {})
@@ -93,7 +98,11 @@ describe('Create Meetup Button functions', () => {
     beforeEach(() => {
         getItemMock.mockReturnValue('[{"Id":1, "Date":"2022-04-26 11:45", "Title":"Meet Up One", "Description":"MeetUp One Description", "Host":"Omar", "Image":"http://example.com/image.jpg", "Attend":false}, {"Id":2,"Date":"2023-04-26 11:45","Title":"Meet Up Two","Description":"MeetUp Two Description ","Host":"Hoster Two","Image":"http://example.com/image.jpg","Attend":false}]');
 
-        render(<CreateMeetupForm/>)
+        render(
+            <BrowserRouter>
+                <CreateMeetupForm/>
+            </BrowserRouter>
+            )
     })
     it('render a meetup button', () => {
         const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
