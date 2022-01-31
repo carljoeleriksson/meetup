@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Home from './pages/HomePage'
 import MeetupDetails from './pages/MeetupDetails'
+import CreateMeetupForm from './pages/CreateMeetupForm'
 
 import Header from './components/Header'
 
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/details" element={<MeetupDetails Id="1"/>} />
+            <Route path="/create-meetup" element={<CreateMeetupForm />} />
 
           </Routes>  
 
