@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
 
@@ -8,16 +8,32 @@ function todaysDate() {
   return date
 }
 
+function getDateFromHours(date:any) {
+   //; console.log(date)
+   // const time = date.split(' @ ')[0];
+    
+    let daten = new Date(date);
+    return daten.toISOString().slice(0, 10);
+} 
 
 
-function CreateMeetupForm() {
+
+
+  function CreateMeetupForm(prop:any) {
+     
     const navigate = useNavigate()
 
-    
+
+    const meetup = prop.meetup
+
+
+  
     function handleSubmit(e: any) {
             e.preventDefault()
   
             const existingMeetups = JSON.parse(localStorage.getItem('meetUp-List')??'[]')
+
+
             //Get highest id in array and later give the new meetup highestId + 1
             const arrOfIds = existingMeetups.map((meetup:any)=>{console.log(meetup.Id); return meetup.Id})
             let highestId=Math.max(...arrOfIds) ?? 0;
@@ -33,7 +49,7 @@ function CreateMeetupForm() {
               };
             
             const newMeetup = {
-                Id:  highestId + 1,
+                Id: (!meetup) ? highestId + 1 : meetup.Id,
                 Title: target.title?.value,
                 Date: `${target.date?.value} @ ${target.time?.value}`,
                 Description: target.description?.value,
@@ -42,65 +58,114 @@ function CreateMeetupForm() {
                 Image: target.image?.value,
                 Attend: false
             }
-            
-            const newArr: any = [newMeetup, ...existingMeetups];
-            /* const newArr: any = []; */
+            let newArr: any = []; 
+
+       
+
+
+            if(!meetup){
+              newArr = [newMeetup, ...existingMeetups];
+            }else {
+
+
+                newArr =   existingMeetups.map((el:any)=>{
+                    
+
+               if(el.Id == meetup.Id ){
+                    el.Title = newMeetup.Title
+                    el.Date = newMeetup.Date
+                    el.Description = newMeetup.Description
+                    el.Host = newMeetup.Host
+                    el.Category = newMeetup.Category
+                    el.Image = newMeetup.Image
+
+                    el.Attend = newMeetup.Attend
+
+                return el
+              }
+               
+              return el
+             })
+            }
+
            
             localStorage.setItem('meetUp-List', JSON.stringify(newArr));
+
             
-            navigate('/')
+           navigate('/')
     }
 
-    return <>
-        
-        <h2>Create Meetup</h2>
+return <>
+        <h2>{!meetup ? "Create Meetup" :"Edit Meetup"}  </h2>
         <div className='create-meetup-wrapper'>
             <Link to="/" className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</Link>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title-input">Title</label>
                 <input 
+                    id="Id-input"
+                    name="Id" 
+                    type="hidden"
+                    defaultValue={meetup && meetup.Id}                 />
+                <input 
                     id="title-input"
                     name="title" 
-                    type="text" 
-                />
+                    type="text"
+                    defaultValue={meetup && meetup.Title} 
+                required />
                 <label htmlFor="date-input">Date</label>
                 <input 
                     id="date-input" 
                     name="date"
                     type="date" 
                     placeholder={todaysDate()}
-                />
+                    defaultValue={meetup && meetup.Date.split(" @ ")[0]} 
+
+                     />
                 <label htmlFor="time-input">Time</label>
                 <input 
                     id="time-input"
                     name="time" 
                     type="time"
-                />
+                    defaultValue={meetup && meetup.Date.split(" @ ")[1]} 
+                     />
                 <label htmlFor="desc-input">Description</label>
                 <input 
                     id="desc-input" 
                     name="description"
                     type="textarea" 
-                />
+
+                    defaultValue={meetup && meetup.Description} 
+                    required />
                 <label htmlFor="host-input">Host</label>
                 <input 
                     id="host-input" 
                     name="host"
                     type="text" 
-                />
+                    defaultValue={meetup && meetup.Host} 
+
+                    required  />
                 <label htmlFor="cat-input">Category</label>
                 <input 
                     id="cat-input" 
                     name="category"
                     type="text" 
-                />
+                    defaultValue={meetup && meetup.Category} 
+
+                    required  />
                 <label htmlFor="img-input">Image</label>
                 <input 
                     id="img-input" 
                     name="image"
                     type="text" 
-                />
-                <button className='create-btn' type="submit">Create Meetup</button>   
+                    defaultValue={meetup && meetup.Image} 
+
+                    required />
+                <button className='create-btn' type="submit">
+                    {!meetup ?
+                    "Create Meetup"
+                       :
+                    "Edit Meetup"}
+                    </button>   
             </form>    
         </div>
     </>

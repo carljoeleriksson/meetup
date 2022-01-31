@@ -8,6 +8,7 @@ import CreateMeetupForm from './pages/CreateMeetupForm'
 import Header from './components/Header'
 
 import './App.css'
+import MeetupManager from './pages/MeetupManager'
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
               <Route path="/" element={<Home/>} />
               <Route path="/details/:id" element={<MeetupDetails/>} />
               <Route path="/create-meetup" element={<CreateMeetupForm />} />
+              <Route path="/meetup-manager" element={<MeetupManager />} />
+
           </Routes>  
 
           
