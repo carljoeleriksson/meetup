@@ -43,12 +43,12 @@ describe('sorting and filtering', () => {
 
             if(index === 0){
                 // most recent meetup should be first
-                expect(el).toHaveTextContent("Meet Up Third")
+                expect(el).toHaveTextContent("Yoga Retreat")
             } else if(index === 1) {
-                expect(el).toHaveTextContent("Meet Up One")
+                expect(el).toHaveTextContent("Bookclub")
             } else if(index === 2)
             // last since that's the past one of our default meetups
-                expect(el).toHaveTextContent("Meet Up Two")
+                expect(el).toHaveTextContent("Painting workshop")
 
       })
   })
@@ -61,11 +61,11 @@ describe('sorting and filtering', () => {
       const meetupCards = screen.queryAllByTestId('singleMeetup')
       meetupCards.forEach((el, index) => {
         if(index === 0){
-          expect(el).toHaveTextContent("Music")
+          expect(el).toHaveTextContent("Architechture")
         } else if (index === 1) {
-          expect(el).toHaveTextContent("Sport")
-        } else if (index === 2) {
           expect(el).toHaveTextContent("Art")
+        } else if (index === 2) {
+          expect(el).toHaveTextContent("Books")
         }
       })
   })
@@ -77,7 +77,7 @@ describe('sorting and filtering', () => {
       const meetupCards = screen.queryAllByTestId('singleMeetup')
       meetupCards.forEach((el, index) => {
           if(index === 0){
-            expect(el).toHaveTextContent("Meet Up One")
+            expect(el).toHaveTextContent("Bookclub")
           }
       })
 

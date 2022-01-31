@@ -1,39 +1,73 @@
 [
     {
         "Id": 1,
-        "Date": "2024-04-28 14:45",
-        "Title" :  "Meet Up One",
-        "Description" : "MeetUp One Description ",
-        "Host": "Host: Omar",
-        "Image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80",
+        "Date": "2022-04-28 14:45",
+        "Title" :  "Bookclub",
+        "Description" : "A place to meet and talk about amazing books that you've read. Join us, it'll be fun!",
+        "Host": "Steve Jordan",
+        "Image": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80",
         "Attend": true,
-        "Category": "Sport"
+        "Category": "Books"
 
     },
     {
         "Id": 2,
-        "Date": "2022-01-01 11:30",
-        "Title" :  "Meet Up Two",
-        "Description" : "MeetUp Two Description ",
-        "Host": "Host: Ahmed",
-        "Image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80",
+        "Date": "2022-01-01 13:00",
+        "Title" :  "New Years Day Pizza",
+        "Description" : "Eating a whole lot of Svenne-Pizza of your choice on the day after New Years day.",
+        "Host": "Mario & Luigi",
+        "Image": "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3387&q=80",
         "Attend": false,
-        "Category": "Art"
-
-
-
+        "Category": "Food"
     },
     {
         "Id": 3,
-        "Date": "2024-04-21 11:30",
-        "Title" :  "Meet Up Third",
-        "Description" : "MeetUp Third Description ",
-        "Host": "Host: Joel",
-        "Image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80",
+        "Date": "2022-04-21 07:00",
+        "Title" :  "Yoga Retreat",
+        "Description" : "An early morning Yoga-session for everyone who loves waking up early in the morning and exercising first thing. Breakfast is included!",
+        "Host": "Bikram Choudhury",
+        "Image": "https://images.unsplash.com/photo-1640622659144-18a1fd885123?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+        "Attend": false,
+        "Category": "Sports"
+    },
+    {
+        "Id": 4,
+        "Date": "2022-12-11 07:00",
+        "Title" :  "Luciatåg",
+        "Description" : "A bunch of people getting together early in the morning, singing carols with candles in their hair and/or hands.",
+        "Host": "Sankta Lucia",
+        "Image": "https://images.unsplash.com/photo-1495667496513-9068843d7679?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80",
         "Attend": false,
         "Category": "Music"
-
-
-
+    },
+    {
+        "Id": 5,
+        "Date": "2022-05-23 20:00",
+        "Title" :  "Painting workshop",
+        "Description" : "Learn to paint with the greatest of all time! Pablo Picasso shows you how to paint perfect squares and triangles!",
+        "Host": "Pablo Picasso",
+        "Image": "https://images.unsplash.com/photo-1640622842924-fb0017b9d786?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2344&q=80",
+        "Attend": true,
+        "Category": "Art"
+    },
+    {
+        "Id": 6,
+        "Date": "2024-06-20 15:00",
+        "Title" :  "How To Draw A House",
+        "Description" : "Learn how to build exquisit buildings quickly and charge huge amounts of money!",
+        "Host": "Gert Wingårdh",
+        "Image": "https://images.unsplash.com/photo-1643379317028-29f58257cb29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=985&q=80",
+        "Attend": true,
+        "Category": "Architechture"
+    },
+    {
+        "Id": 7,
+        "Date": "2019-02-15 21:00",
+        "Title" :  "Regular Concert",
+        "Description" : "A concert with live music playing, people standing really close to one another without a mask and enjoying life!",
+        "Host": "Rage Against The Machine",
+        "Image": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+        "Attend": true,
+        "Category": "Music"
     }
 ]
