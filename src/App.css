@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Knewave&family=Noto+Serif+Display:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+:root{
+  background-color: #F1F1F1;
+  --clr-green: #00B894;
+  --clr-black: #3E3E3E;
+  --clr-light-grey: #F1F1F1;
+
+/*   --ff-primary: 'Roboto', sans-serif; */
+  --ff-primary: 'Outfit', sans-serif;
+  --ff-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ff-headings: 'Knewave', cursive;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.App{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body{
+  font-family: var(--ff-primary);
+  font-weight: 400;
+  transition: 200ms;
+  scroll-behavior: smooth;
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+header {
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF;
+}
+
+.header-logo{
+  color:var(--clr-green);
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+a{
+  color: #D9A400;
+}
+
+main {
+  max-width: 900px;
+}
+
+.icon-btn {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: var(--clr-green);
+}
+
+
+img {
+  border-radius: 1rem;
+}
+
+button{
+  font-family: var(--ff-primary);
+  color: #FFF;
+  background-color: var(--clr-green);
+  border: none;
+  outline: none;
+  padding: 7px 14px;
+  height: 31px;
+  border-radius: 99rem;
+  font-weight: 600;
+}
+
+button:focus {
+  outline:none;
+}
+
+select{
+  font-family: var(--ff-primary);
+  background-color: var(--clr-green);
+  border: none;
+  outline: none;
+  color: #FFF;
+  height: 31px;
+  padding: 7px 14px;
+  border-radius: 99rem;
+  font-weight: 600;
+}
+
+select:focus + .focus {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 2px solid var(--clr-light-grey);
+  border-radius: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--ff-headings);
+  text-transform: uppercase;
+}
+
+h1 {
+  color: var(--clr-green);
+  font-size: 3rem;
+  margin: 10px 0px;
+}
+h2 {
+  font-size: 3rem;
+  margin: 10px 0px;
+}
+
+h3 {
+  font-size: 3rem;
+  margin: 5px 0px;
+}
+a {
+  text-decoration: none;
+}
+
+/* _____________MEETUP LIST________________ */
+.nav-sort-wrapper{
+  padding: 1rem 0;
+}
+
+.nav-btn{
+  font-family: var(--ff-primary);
+  font-size: 0.9rem;
+  color: #FFF;
+  background-color: var(--clr-green);
+  border: none;
+  outline: none;
+  padding: 7px 14px;
+  height: 31px;
+  border-radius: 99rem;
+  font-weight: 600;
+  margin: 0 0.2rem;
+}
+
+
+.meetups {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.past-meetups{
+  filter: opacity(60%) 
+}
+.single-meetup{
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 1rem 0.6rem;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+.single-meetup p {
+  margin: 0;
+}
+
+.single-meetup:hover { 
+  background-color: #cde9e3;
+}
+
+.card-meetup-img{
+  width: 100%;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
+}
+.card-date{
+  color:var(--clr-green);
+  font-weight: 700;
+}
+.card-title{
+  margin: 0;
+  font-size: 1.6rem;
+}
+.card-host{
+  color: var(--clr-green);
+  margin-bottom: 0.5rem !important;
+}
+.card-cat{
+  margin-bottom: 0.5rem !important;
+  font-weight: 700;
+  background-color: var(--clr-green);
+  padding: 4px;
+  color: #FFF;
+  border-radius: 5px;
+}
+
+
+
+/* _____________MEETUP DETAILS_____________ */
+
+
+.meetup-details-wrapper {
+  margin: 1rem 0;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas: 
+  'img img img img'
+  '. date attend .'
+  '. title attend .'
+  '. host attend .'
+  '. desc desc .'
+  ;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.meetup-details-wrapper img{
+  grid-area: img;
+  width: 70%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+.attend-btn {
+  grid-area: attend;
+  width: 8rem;
+}
+.details-date{
+  grid-area: date;
+  justify-self: left;
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--clr-green);
+  text-transform: uppercase;
+}
+.details-title{
+  grid-area: title;
+  justify-self: left;
+  margin-bottom: 0;
+}
+.details-host{
+  grid-area: host;
+  justify-self: left;
+  margin: 0;
+  color: var(--clr-green);
+}
+.details-host span{
+  font-weight: 600;
+}
+.details-desc{
+  grid-area: desc;
+  justify-self: left;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.back-btn {
+  position: absolute;
+  top: 7rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.back-btn svg{
+  font-size: 2rem;
+  margin-right: 0.2rem;
+}
+
+
+
+
+/*__________COMMENTS SECTION ___________*/
+
+.comment-btn{
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 1rem 0;
+  height:100%;
+}
+.comment-btn svg {
+  font-size: 2rem;
+  position: relative;
+  top: 0.5rem;
+}
+.comments-section{
+  display: flex;
+  justify-content: center;
+}
+.comments-form{
+  display: flex;
+  width: 320px;
+  text-align: center;
+  flex-direction: column;
+}
+
+input {
+  border: 1px solid var(--clr-green);
+  border-radius: 1rem;
+  padding: 0.5rem; 
+  outline: none;
+  margin: 0.2rem;
+}
+.comments-list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+.comments-item{
+  font-size: 0.8rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  width: 300px;
+  padding: 0.6rem 1rem;
+  text-align: left;
+  margin: 0.5rem;
+}
+
+.comments-item span:nth-child(1){
+  color: var(--clr-green);
+  font-weight: 700;
+}
+
+/*________________CREATE MEETUP__________________*/
+.create-meetup-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-meetup-wrapper form{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.create-meetup-wrapper .create-btn { grid-column: 1/3;}
+
+.create-meetup-wrapper .back-btn {
+  left:18rem;
+}
+
+.meetups-list {
+  display: grid;
+  grid-template-columns: 9fr .5fr .5fr;
+  gap: 1rem;
+  text-align: left;
+
+}
+
+.meetups-list h3{
+  font-size: large;
+}
+.show-form{
+  display: block;
+}
+
+.hide-form{
+  display:none
+}
