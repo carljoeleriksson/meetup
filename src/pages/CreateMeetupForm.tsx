@@ -89,7 +89,8 @@ function todaysDate() {
             localStorage.setItem('meetUp-List', JSON.stringify(newArr));
 
             if(meetup){
-                window.location.replace('/');
+                window.location.reload(); 
+                
             }else {
                 navigate('/')
             }

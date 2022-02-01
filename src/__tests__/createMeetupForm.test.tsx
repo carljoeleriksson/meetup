@@ -1,5 +1,6 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import "jest-location-mock";
 import { mockLocalStorage } from '../utils/mockLocalStorage'
 import CreateMeetupForm from '../pages/CreateMeetupForm'
 import { BrowserRouter } from "react-router-dom";
@@ -182,6 +183,7 @@ test('Update A Meetup', async () => {
     const createMeetupBtn = screen.getByRole('button', { name: /edit meetup/i })
 
     userEvent.click(createMeetupBtn);
+    expect(window.location).toBeAt('/')
 
     render(
         <BrowserRouter>

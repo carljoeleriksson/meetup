@@ -15,7 +15,7 @@ function MeetupDetails(props: any) {
     let meetupId: any = null
 
     const { id } = useParams()
-    console.log('id: ', id);
+   /*  console.log('id: ', id); */
     
     //console.log(props.Id)
 

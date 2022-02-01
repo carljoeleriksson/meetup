@@ -16,6 +16,11 @@ Omar Mahrous
 -As a user I want to be able to Attend or "Un-attend" to a Meetup.
 -As a user I want to be able to discuss the meetups.
 
+-As an admin I want to be able to create an event
+-As an admin I want to be able to edit an event
+-As an admin I want to be able to delete an event
+
+
 ##Info
 npm i
 npm start

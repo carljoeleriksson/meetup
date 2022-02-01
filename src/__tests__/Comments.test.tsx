@@ -141,7 +141,7 @@ describe('Comments component', () => {
 
     it('New comment should not be rendered to dom when it can not be stored to localstorage', ()=> {
         setItemMock.mockImplementation(() => {
-            throw Error()
+            throw Error('This error is supposed to happen!')
   })
 
         const buttons = screen.getAllByRole('button')
