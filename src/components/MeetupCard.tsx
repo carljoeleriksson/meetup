@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import './MeetupCard.css'
-
 
 function MeetupCard(meetup: any) {
   
