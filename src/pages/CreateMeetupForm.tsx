@@ -13,14 +13,19 @@ function CreateMeetupForm() {
     const navigate = useNavigate()
 
     
-    function handleSubmit(e: any) {
+    function handleSubmit(e: React.SyntheticEvent) {
             e.preventDefault()
-  
+            
+            //Checking whats contained inside the form element.
+            
+            /* console.log('e.target: ', e.target); */
+            console.log('e.target: ', (e.target as HTMLFormElement).elements);
+            
             const existingMeetups = JSON.parse(localStorage.getItem('meetUp-List')??'[]')
             //Get highest id in array and later give the new meetup highestId + 1
-            const arrOfIds = existingMeetups.map((meetup:any)=>{console.log(meetup.Id); return meetup.Id})
+            const arrOfIds = existingMeetups.map((meetup:any) => meetup.Id)
             let highestId=Math.max(...arrOfIds) ?? 0;
-
+            
             const target = e.target as typeof e.target & {
                 title: { value: string },
                 date: { value: Date },
@@ -29,16 +34,19 @@ function CreateMeetupForm() {
                 host: { value: string },
                 category: { value: string },
                 image: { value: string },
-              };
+            };
             
+            console.log('target.title.value: ', target.title.value);
+            console.log('typeof(target.title.value): ', typeof(target.title.value));
+
             const newMeetup = {
                 Id:  highestId + 1,
-                Title: target.title?.value,
-                Date: `${target.date?.value} @ ${target.time?.value}`,
-                Description: target.description?.value,
-                Host: target.host?.value,
-                Category: target.category?.value,
-                Image: target.image?.value,
+                Title: target.title.value,
+                Date: `${target.date.value} @ ${target.time.value}`,
+                Description: target.description.value,
+                Host: target.host.value,
+                Category: target.category.value,
+                Image: target.image.value,
                 Attend: false
             }
             
@@ -53,7 +61,7 @@ function CreateMeetupForm() {
     return <>
         <h2>Create Meetup</h2>
         <div className='create-meetup-wrapper'>
-        <form onSubmit={handleSubmit}>
+        <form data-testid="create-meetup-form" onSubmit={handleSubmit}>
             <label htmlFor="title-input">Title</label>
             <input 
                 id="title-input"

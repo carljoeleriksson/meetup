@@ -1,8 +1,10 @@
-import { render, screen, waitFor } from "@testing-library/react"
+import { render, screen, waitFor, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { mockLocalStorage } from '../utils/mockLocalStorage'
 import CreateMeetupForm from '../pages/CreateMeetupForm'
 import { BrowserRouter } from "react-router-dom";
+import { act } from 'react-dom/test-utils';
+import MeetUpList from "../components/MeetUpList";
 
 /* import { LocalStorageMock } from '@react-mock/localstorage'; */
 
@@ -10,9 +12,10 @@ const { getItemMock, setItemMock } = mockLocalStorage();
 
 const newMeetup = {
         "Id": 6,
-        "Date": "2022-01-02 12:30",
+        "Date": "2022-01-02",
+        "Time": "12:30",
         "Title" :  "Basketball",
-        "Description" : "A game of Basketball",
+        "Description" : "AgameofBasketball",
         "Host": "Jesus",
         "Image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80",
         "Attend": false,
@@ -82,15 +85,31 @@ describe('createMeetupForm - Component for creating a new Meetup', () => {
 
  
 function setupForm(newMeetup: any) {
+    const titleElem = screen.getByLabelText(/title:?/i)
+    const dateElem = screen.getByLabelText(/date:?/i)
+    const timeElem = screen.getByLabelText(/time:?/i)
+    const descElem = screen.getByLabelText(/description:?/i)
+    const hostElem = screen.getByLabelText(/host:?/i)
+    const imageElem = screen.getByLabelText(/image:?/i)
+    const catElem = screen.getByLabelText(/category:?/i)
     
-    //Här är problemet!!
-    userEvent.type(screen.getByLabelText(/title:?/i), newMeetup.Title)
-    userEvent.type(screen.getByLabelText(/date:?/i), newMeetup.Date)
-    userEvent.type(screen.getByLabelText(/time:?/i), newMeetup.Time)
-    userEvent.type(screen.getByLabelText(/description:?/i), newMeetup.Description.replace(' ', '{space}'))
-    userEvent.type(screen.getByLabelText(/host:?/i), newMeetup.Host.replace(' ', '{space}'))
-    userEvent.type(screen.getByLabelText(/image:?/i), newMeetup.Image.replace(' ', '{space}'))
-    userEvent.type(screen.getByLabelText(/category:?/i), newMeetup.Category.replace(' ', '{space}'))
+    userEvent.type(titleElem, newMeetup.Title.replace(' ', '{space}'))
+    userEvent.type(dateElem, newMeetup.Date)
+    userEvent.type(timeElem, newMeetup.Time)
+    userEvent.type(descElem, newMeetup.Description.replace(' ', '{space}'))
+    userEvent.type(hostElem, newMeetup.Host.replace(' ', '{space}'))
+    userEvent.type(imageElem, newMeetup.Image.replace(' ', '{space}'))
+    userEvent.type(catElem, newMeetup.Category.replace(' ', '{space}')) 
+/* 
+    fireEvent.change(titleElem, {target: {value: newMeetup.Title}})
+    fireEvent.change(dateElem, {target: {value: newMeetup.Date}})
+    fireEvent.change(timeElem, {target: {value: newMeetup.Time}})
+    fireEvent.change(descElem, {target: {value: newMeetup.Description}})
+    fireEvent.change(hostElem, {target: {value: newMeetup.Host}})
+    fireEvent.change(imageElem, {target: {value: newMeetup.Image}})
+    fireEvent.change(catElem, {target: {value: newMeetup.Category}})
+ */
+  
   };
  
 
@@ -111,28 +130,37 @@ describe('Create Meetup Button functions', () => {
 
     it('title input field holds value when typed into', () => {
         const titleInput = screen.getByLabelText(/title:?/i)
-        userEvent.type(titleInput, 'Hej')
-        expect(titleInput).toHaveValue('Hej')
+        userEvent.type(titleInput, 'Basketball')
+        expect(titleInput).toHaveValue('Basketball')
     })
-/* 
-    it('saves the meetup to localStorage when "create meetup"-btn is clicked', () => {
+
+    it('checks that the new meetup is rendered in MeetupList.tsx', () => {
         setupForm(newMeetup)
 
-        const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
-        userEvent.click(createMeetupBtn);
-
-        expect(setItemMock).toHaveBeenCalled()
-        console.log('setItemMock.mock.calls[0][1]: ', setItemMock.mock.calls[0][1]);
-        const item=(JSON.parse(setItemMock.mock.calls[0][1]) as Array<any>)[0];
+        const titleElem = screen.getByLabelText(/title:?/i)
+        const dateElem = screen.getByLabelText(/date:?/i)
+        const timeElem = screen.getByLabelText(/time:?/i)
+        const descElem = screen.getByLabelText(/description:?/i)
+        const hostElem = screen.getByLabelText(/host:?/i)
+        const imageElem = screen.getByLabelText(/image:?/i)
+        const catElem = screen.getByLabelText(/category:?/i)
         
-        console.log('item: ', item);
-        
-        expect(setItemMock.mock.calls[0][0]).toBe('meetUp-List');
+        expect(titleElem).toHaveValue(newMeetup.Title)
+        expect(dateElem).toHaveValue(newMeetup.Date)
+        expect(timeElem).toHaveValue(newMeetup.Time)
+        expect(descElem).toHaveValue(newMeetup.Description)
+        expect(hostElem).toHaveValue(newMeetup.Host)
+        expect(imageElem).toHaveValue(newMeetup.Image)
+        expect(catElem).toHaveValue(newMeetup.Category)
 
-        expect(item.Title).toBe(newMeetup.Title);
+        getItemMock.mockReturnValue('[{"Id": 6, "Date": "2022-01-02", "Time": "12:30", "Title" :  "Basketball", "Description" : "A game of bouncing a ball back and forth", "Host": "Jesus", "Image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80", "Attend": false, "Category": "Sports"}]')
 
-
+        render(
+            <BrowserRouter>
+                <MeetUpList />
+            </BrowserRouter>
+        )
+        const newMeetupTitle = screen.getByText(/Basketball/i)
+        expect(newMeetupTitle).toBeInTheDocument()
     })
- */
-    //gives you text feedback when the meetup is saved to localStorage
 })
