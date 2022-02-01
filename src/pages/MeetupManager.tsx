@@ -89,23 +89,23 @@ export default function MeetupManager() {
     }, [])
 
     return <>
-        <div className='nav-sort-wrapper'>
+        <div className='nav-sort-wrapper'  data-testid="meetups-list">
         <Link to="/" className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</Link>
 
             <h2>Manage your Meetups</h2>
 
             {allMeetups.length > 0 && allMeetups.map((el: any) => (
-                <div className="meetups-list" key={el.Id}>
+                <div className="meetups-list" key={el.Id} data-testid={"meetups-list#" + el.Id}>
                     <div>
-                        <p><h3>{el.Title}</h3></p>
+                        <h3>{el.Title}</h3>
                         <p>{el.Description}</p>
                         <p>{el.Date}</p>
                     </div>
                     <div>
-                        <a href="#" id={el.Id} onClick={removeMeetup}>Remove</a>
+                        <a href="#" id={el.Id} onClick={removeMeetup} data-testid={ "delete#" + el.Id}>Remove</a>
                     </div>
                     <div>
-                        <a href="#" onClick={(e) => updateMeetup(e, el)}>Update</a>
+                        <a href="#" onClick={(e) => updateMeetup(e, el)} data-testid={ "edit#" + el.Id}> Update</a>
                     </div>
 
                 </div>

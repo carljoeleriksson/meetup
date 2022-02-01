@@ -15,6 +15,9 @@ function todaysDate() {
 
    const meetup = prop.meetup
 
+   console.log("meetup#")
+   console.log(meetup)
+
   function handleSubmit(e: any) {
 
             e.preventDefault()
@@ -76,8 +79,12 @@ function todaysDate() {
             }
            
             localStorage.setItem('meetUp-List', JSON.stringify(newArr));
-            
-            navigate('/')
+
+            if(meetup){
+                window.location.reload();
+            }else {
+                navigate('/')
+            }
     }
 
 return <>

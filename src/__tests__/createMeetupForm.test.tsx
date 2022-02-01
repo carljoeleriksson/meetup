@@ -3,45 +3,46 @@ import userEvent from "@testing-library/user-event"
 import { mockLocalStorage } from '../utils/mockLocalStorage'
 import CreateMeetupForm from '../pages/CreateMeetupForm'
 import { BrowserRouter } from "react-router-dom";
+import MeetupManager from "../pages/MeetupManager";
 
 /* import { LocalStorageMock } from '@react-mock/localstorage'; */
 
 const { getItemMock, setItemMock } = mockLocalStorage();
 
 const newMeetup = {
-        "Id": 6,
-        "Date": "2022-01-02 12:30",
-        "Title" :  "Basketball",
-        "Description" : "A game of Basketball",
-        "Host": "Jesus",
-        "Image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80",
-        "Attend": false,
-        "Category": "Sports"
+    "Id": 6,
+    "Date": "2022-01-02 12:30",
+    "Title": "Basketball",
+    "Description": "A game of Basketball",
+    "Host": "Jesus",
+    "Image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80",
+    "Attend": false,
+    "Category": "Sports"
 }
 
 describe('createMeetupForm - Component for creating a new Meetup', () => {
-    beforeEach(()=>{
+    beforeEach(() => {
         render(
             <BrowserRouter>
-                <CreateMeetupForm/>
+                <CreateMeetupForm />
             </BrowserRouter>
-            )
-      })
+        )
+    })
 
-    it('renders without crashing', () => {})
-    
+    it('renders without crashing', () => { })
+
     it('renders a heading', () => {
-        const headingElem = screen.getByRole('heading', {name: /Create Meetup/i})
+        const headingElem = screen.getByRole('heading', { name: /Create Meetup/i })
 
         expect(headingElem).toBeInTheDocument()
     })
-    
+
     it('renders a title input', () => {
         const titleInput = screen.getByLabelText(/title:?/i)
 
         expect(titleInput).toBeInTheDocument()
     })
-    
+
     it('renders a date input', () => {
         const dateInput = screen.getByLabelText(/date:?/i)
 
@@ -74,15 +75,15 @@ describe('createMeetupForm - Component for creating a new Meetup', () => {
     })
 
     it('renders a "create meetup" button', () => {
-        const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
+        const createMeetupBtn = screen.getByRole('button', { name: /create meetup/i })
         expect(createMeetupBtn).toBeInTheDocument()
     })
 
 })
 
- 
+
 function setupForm(newMeetup: any) {
-    
+
     //Här är problemet!!
     userEvent.type(screen.getByLabelText(/title:?/i), newMeetup.Title)
     userEvent.type(screen.getByLabelText(/date:?/i), newMeetup.Date)
@@ -91,8 +92,8 @@ function setupForm(newMeetup: any) {
     userEvent.type(screen.getByLabelText(/host:?/i), newMeetup.Host.replace(' ', '{space}'))
     userEvent.type(screen.getByLabelText(/image:?/i), newMeetup.Image.replace(' ', '{space}'))
     userEvent.type(screen.getByLabelText(/category:?/i), newMeetup.Category.replace(' ', '{space}'))
-  };
- 
+};
+
 
 describe('Create Meetup Button functions', () => {
     beforeEach(() => {
@@ -100,12 +101,12 @@ describe('Create Meetup Button functions', () => {
 
         render(
             <BrowserRouter>
-                <CreateMeetupForm/>
+                <CreateMeetupForm />
             </BrowserRouter>
-            )
+        )
     })
     it('render a meetup button', () => {
-        const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
+        const createMeetupBtn = screen.getByRole('button', { name: /create meetup/i })
         expect(createMeetupBtn).toBeInTheDocument()
     })
 
@@ -114,25 +115,56 @@ describe('Create Meetup Button functions', () => {
         userEvent.type(titleInput, 'Hej')
         expect(titleInput).toHaveValue('Hej')
     })
-/* 
-    it('saves the meetup to localStorage when "create meetup"-btn is clicked', () => {
-        setupForm(newMeetup)
-
-        const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
-        userEvent.click(createMeetupBtn);
-
-        expect(setItemMock).toHaveBeenCalled()
-        console.log('setItemMock.mock.calls[0][1]: ', setItemMock.mock.calls[0][1]);
-        const item=(JSON.parse(setItemMock.mock.calls[0][1]) as Array<any>)[0];
-        
-        console.log('item: ', item);
-        
-        expect(setItemMock.mock.calls[0][0]).toBe('meetUp-List');
-
-        expect(item.Title).toBe(newMeetup.Title);
-
-
-    })
- */
+    /* 
+        it('saves the meetup to localStorage when "create meetup"-btn is clicked', () => {
+            setupForm(newMeetup)
+    
+            const createMeetupBtn = screen.getByRole('button', {name: /create meetup/i})
+            userEvent.click(createMeetupBtn);
+    
+            expect(setItemMock).toHaveBeenCalled()
+            console.log('setItemMock.mock.calls[0][1]: ', setItemMock.mock.calls[0][1]);
+            const item=(JSON.parse(setItemMock.mock.calls[0][1]) as Array<any>)[0];
+            
+            console.log('item: ', item);
+            
+            expect(setItemMock.mock.calls[0][0]).toBe('meetUp-List');
+    
+            expect(item.Title).toBe(newMeetup.Title);
+    
+    
+        })
+     */
     //gives you text feedback when the meetup is saved to localStorage
+
+
+
+})
+
+test('Update A Meetup', async () => {
+
+    getItemMock.mockReturnValue('[{"Id":2,"Date":"2023-04-26 @ 11:45","Title":"Meet Up Two Got Updated","Description":"MeetUp Two Description ","Host":"Hoster Two","Image":"http://example.com/image.jpg","Attend":false}]')
+
+    const meetup = JSON.parse('{"Id":2,"Date":"2023-04-26 @ 11:45","Title":"Meet Up Two","Description":"MeetUp Two Description ","Host":"Hoster Two","Image":"http://example.com/image.jpg","Attend":false}')
+
+    render(
+        <BrowserRouter>
+            <CreateMeetupForm meetup={meetup} />
+        </BrowserRouter>
+    )
+
+    const createMeetupBtn = screen.getByRole('button', { name: /edit meetup/i })
+
+    userEvent.click(createMeetupBtn);
+
+    render(
+        <BrowserRouter>
+            <MeetupManager />
+        </BrowserRouter>
+    )
+
+    const container: any = screen.getByTestId('meetups-list')
+
+    expect(container).toHaveTextContent('Meet Up Two Got Updated')
+
 })
