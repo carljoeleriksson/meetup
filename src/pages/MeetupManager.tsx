@@ -53,7 +53,7 @@ export default function MeetupManager() {
         e.preventDefault()
 
 
-        console.log(meetup)
+        /* console.log(meetup) */
 
 
         if (isUpcomingMeetup(meetup)) {
@@ -105,7 +105,7 @@ export default function MeetupManager() {
                         <a href="#" id={el.Id} onClick={removeMeetup} data-testid={ "delete#" + el.Id}>Remove</a>
                     </div>
                     <div>
-                        <a href="#" onClick={(e) => updateMeetup(e, el)} data-testid={ "edit#" + el.Id}> Update</a>
+                        <a href="#" onClick={(e) => updateMeetup(e, el)} data-testid={ "edit#" + el.Id}> Edit</a>
                     </div>
 
                 </div>

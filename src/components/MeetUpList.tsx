@@ -122,11 +122,14 @@ function renderPastMeetupList() {
         <button className="nav-btn" onClick={sortByDate}>Sort By Date</button>
         <button className="nav-btn" onClick={sortByCat}>Sort By Category</button>
         <button className="nav-btn" onClick={filterAttended}>Attended</button>
-        <Link to="/create-meetup" className='nav-btn'>Create Meetup</Link>
-        <Link to="/meetup-manager" className='nav-btn'>Your Meetups</Link>
-
-
       </div>
+      <div className='nav-manage-meetups'>
+        <Link to="/create-meetup" className='nav-btn'>Create Meetup</Link>
+        <Link to="/meetup-manager" className='nav-btn'>Manage Meetups</Link>
+      </div>
+
+
+      
       <div className='future-meetups meetups'>
           {meetupList.length > 0 && renderMeetupList()}
       </div>

@@ -15,20 +15,25 @@ function todaysDate() {
 
    const meetup = prop.meetup
 
-   console.log("meetup#")
-   console.log(meetup)
+ /*   console.log("meetup#")
+   console.log(meetup) */
 
   function handleSubmit(e: any) {
 
             e.preventDefault()
-  
+            
+            //Checking whats contained inside the form element.
+            
+            /* console.log('e.target: ', e.target); */
+            /* console.log('e.target: ', (e.target as HTMLFormElement).elements); */
+            
             const existingMeetups = JSON.parse(localStorage.getItem('meetUp-List')??'[]')
 
 
             //Get highest id in array and later give the new meetup highestId + 1
-            const arrOfIds = existingMeetups.map((meetup:any)=>{console.log(meetup.Id); return meetup.Id})
+            const arrOfIds = existingMeetups.map((meetup:any) => meetup.Id)
             let highestId=Math.max(...arrOfIds) ?? 0;
-
+            
             const target = e.target as typeof e.target & {
                 title: { value: string },
                 date: { value: Date },
@@ -37,8 +42,11 @@ function todaysDate() {
                 host: { value: string },
                 category: { value: string },
                 image: { value: string },
-              };
-            
+            };
+          /*   
+            console.log('target.title.value: ', target.title.value);
+            console.log('typeof(target.title.value): ', typeof(target.title.value));
+ */
             const newMeetup = {
                 Id: (!meetup) ? highestId + 1 : meetup.Id,
                 Title: target.title?.value,
@@ -81,7 +89,7 @@ function todaysDate() {
             localStorage.setItem('meetUp-List', JSON.stringify(newArr));
 
             if(meetup){
-                window.location.reload();
+                window.location.replace('/');
             }else {
                 navigate('/')
             }
@@ -91,7 +99,7 @@ return <>
         <h2>{!meetup ? "Create Meetup" :"Edit Meetup"}  </h2>
         <div className='create-meetup-wrapper'>
            {!meetup && <Link to="/" className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</Link> }
-            <form onSubmit={handleSubmit}>
+            <form data-testid="create-meetup-form" onSubmit={handleSubmit}>
                 <label htmlFor="title-input">Title</label>
                 <input 
                     id="Id-input"
