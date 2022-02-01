@@ -367,3 +367,22 @@ input {
 .create-meetup-wrapper .back-btn {
   left:18rem;
 }
+
+.meetups-list {
+  display: grid;
+  grid-template-columns: 9fr .5fr .5fr;
+  gap: 1rem;
+  text-align: left;
+
+}
+
+.meetups-list h3{
+  font-size: large;
+}
+.show-form{
+  display: block;
+}
+
+.hide-form{
+  display:none
+}

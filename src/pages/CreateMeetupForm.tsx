@@ -8,27 +8,15 @@ function todaysDate() {
   return date
 }
 
-function getDateFromHours(date:any) {
-   //; console.log(date)
-   // const time = date.split(' @ ')[0];
-    
-    let daten = new Date(date);
-    return daten.toISOString().slice(0, 10);
-} 
-
-
-
 
   function CreateMeetupForm(prop:any) {
      
     const navigate = useNavigate()
 
+   const meetup = prop.meetup
 
-    const meetup = prop.meetup
+  function handleSubmit(e: any) {
 
-
-  
-    function handleSubmit(e: any) {
             e.preventDefault()
   
             const existingMeetups = JSON.parse(localStorage.getItem('meetUp-List')??'[]')
@@ -60,17 +48,15 @@ function getDateFromHours(date:any) {
             }
             let newArr: any = []; 
 
-       
-
-
             if(!meetup){
-              newArr = [newMeetup, ...existingMeetups];
-            }else {
 
+              newArr = [newMeetup, ...existingMeetups];
+
+            }else {
+                // update meetup case
 
                 newArr =   existingMeetups.map((el:any)=>{
-                    
-
+ 
                if(el.Id == meetup.Id ){
                     el.Title = newMeetup.Title
                     el.Date = newMeetup.Date
@@ -85,20 +71,19 @@ function getDateFromHours(date:any) {
               }
                
               return el
+
              })
             }
-
            
             localStorage.setItem('meetUp-List', JSON.stringify(newArr));
-
             
-           navigate('/')
+            navigate('/')
     }
 
 return <>
         <h2>{!meetup ? "Create Meetup" :"Edit Meetup"}  </h2>
         <div className='create-meetup-wrapper'>
-            <Link to="/" className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</Link>
+           {!meetup && <Link to="/" className='back-btn icon-btn'><FaArrowAltCircleLeft />Back</Link> }
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title-input">Title</label>
                 <input 
