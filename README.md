@@ -2,11 +2,6 @@
 ##Syfte med appen:
 Syftet med projektet är att lära sig att arbeta med TDD-metoden och på så sätt bygga en Meetup-app.
 
-##Medlemmar:
-Ahmed Ismail
-Joel Eriksson
-Omar Mahrous
-
 ##User Stories
 -As a user I want to see a list of available meetups
 -As a user I want the meetups most relevant to me shown on top of the page.
